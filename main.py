@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.controllers.usuario_controller import router as usuario_router
 from backend.controllers.rol_controller import router as rol_router
+from backend.controllers.cliente_controller import router as cliente_router
 from backend.core.config import settings
 
 app = FastAPI()
@@ -22,6 +23,7 @@ app.add_middleware(
 
 app.include_router(usuario_router)
 app.include_router(rol_router)
+app.include_router(cliente_router)
 
 # Aquí se incluirán los routers de los controladores
 

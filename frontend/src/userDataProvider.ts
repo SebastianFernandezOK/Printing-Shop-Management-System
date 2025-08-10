@@ -3,12 +3,15 @@ import { fetchUtils, DataProvider } from 'react-admin';
 const apiUrl = '/api'; // Usar proxy para desarrollo
 const httpClient = fetchUtils.fetchJson;
 
-// Adapt id_usuario to id for React Admin
-const mapUserId = (data: any) => {
+// Adapt id_usuario and id_cliente to id for React Admin
+const mapId = (data: any) => {
     if (Array.isArray(data)) {
-        return data.map(item => ({ ...item, id: item.id_usuario }));
+        return data.map(item => ({
+            ...item,
+            id: item.id_usuario ?? item.id_cliente,
+        }));
     }
-    return { ...data, id: data.id_usuario };
+    return { ...data, id: data.id_usuario ?? data.id_cliente };
 };
 
 export const userDataProvider: DataProvider = {
@@ -16,27 +19,27 @@ export const userDataProvider: DataProvider = {
         const { page = 1, perPage = 10 } = params.pagination || {};
         const query = `?page=${page}&perPage=${perPage}`;
         return httpClient(`${apiUrl}/${resource}/${query}`).then(({ json }) => ({
-            data: mapUserId(json.data),
+            data: mapId(json.data),
             total: json.total,
         }));
     },
     getOne: (resource, params) =>
         httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => ({
-            data: mapUserId(json),
+            data: mapId(json),
         })),
     create: (resource, params) =>
         httpClient(`${apiUrl}/${resource}/`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
-            data: mapUserId(json),
+            data: mapId(json),
         })),
     update: (resource, params) =>
         httpClient(`${apiUrl}/${resource}/${params.id}`, {
             method: 'PUT',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
-            data: mapUserId(json),
+            data: mapId(json),
         })),
     delete: (resource, params) =>
         httpClient(`${apiUrl}/${resource}/${params.id}`, {

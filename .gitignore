@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+*.egg-info/
+.env
+.env.*
+
+# VSCode
+.vscode/
+
+# Node/React
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
+*.sqlite3
+
+# Others
+*.bak
+*.swp
+*.swo
+.idea/
+
+# Frontend build
+app/frontend/dist/
+
+# Backend cache
+app/backend/**/__pycache__/
+
+# Ignore local settings
+app/.env
+app/backend/.env
+app/frontend/.env
