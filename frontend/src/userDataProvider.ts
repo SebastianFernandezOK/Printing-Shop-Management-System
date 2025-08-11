@@ -14,6 +14,7 @@ const mapId = (data: any) => {
                 : item.id_orden_trabajo !== undefined ? item.id_orden_trabajo
                 : item.id_sistema_impresion !== undefined ? item.id_sistema_impresion
                 : item.id_etapa !== undefined ? item.id_etapa
+                : item.id_control_preprensa !== undefined ? item.id_control_preprensa
                 : item.id,
         }));
     }
@@ -25,6 +26,7 @@ const mapId = (data: any) => {
             : data.id_orden_trabajo !== undefined ? data.id_orden_trabajo
             : data.id_sistema_impresion !== undefined ? data.id_sistema_impresion
             : data.id_etapa !== undefined ? data.id_etapa
+            : data.id_control_preprensa !== undefined ? data.id_control_preprensa
             : data.id,
     };
 };

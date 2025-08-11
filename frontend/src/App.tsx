@@ -13,6 +13,10 @@ import BuildIcon from '@mui/icons-material/Build';
 import { OrdenTrabajoList } from "./OrdenTrabajo/OrdenTrabajoList";
 import { OrdenTrabajoCreate } from "./OrdenTrabajo/OrdenTrabajoCreate";
 import { OrdenTrabajoEdit } from "./OrdenTrabajo/OrdenTrabajoEdit";
+import { ControlPrePrensaList } from "./ControlPrePrensa/ControlPrePrensaList";
+import { ControlPrePrensaCreate } from "./ControlPrePrensa/ControlPrePrensaCreate";
+import { ControlPrePrensaEdit } from "./ControlPrePrensa/ControlPrePrensaEdit";
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 
 export const App = () => (
   <Admin layout={Layout} dataProvider={userDataProvider}>
@@ -39,6 +43,14 @@ export const App = () => (
       edit={OrdenTrabajoEdit}
       options={{ label: "Órdenes de Trabajo", hasDelete: true }}
       icon={BuildIcon}
+    />
+    <Resource
+      name="controles_preprensa"
+      list={ControlPrePrensaList}
+      create={ControlPrePrensaCreate}
+      edit={ControlPrePrensaEdit}
+      options={{ label: "Control PrePrensa", hasDelete: true }}
+      icon={AssignmentTurnedInIcon}
     />
   </Admin>
 );

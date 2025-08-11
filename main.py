@@ -8,6 +8,7 @@ from backend.controllers.orden_trabajo_controller import router as orden_trabajo
 from backend.controllers.troquelado_controller import router as troquelado_router
 from backend.controllers.sistema_controller import router as sistema_router
 from backend.controllers.etapa_controller import router as etapa_router
+from backend.controllers.control_preprensa_controller import router as control_preprensa_router
 from backend.core.config import settings
 
 app = FastAPI()
@@ -32,6 +33,7 @@ app.include_router(orden_trabajo_router)
 app.include_router(troquelado_router)
 app.include_router(sistema_router)
 app.include_router(etapa_router)
+app.include_router(control_preprensa_router)
 
 # Aquí se incluirán los routers de los controladores
 
