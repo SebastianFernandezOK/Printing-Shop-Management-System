@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
-from app.backend.core.config import Base
-from app.backend.models.rol_model import Rol
+from backend.core.config import Base
+from backend.models.rol_model import Rol
 import datetime
 
 

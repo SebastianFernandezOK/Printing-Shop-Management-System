@@ -1,7 +1,7 @@
 from typing import List
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.backend.repositories.rol_repository import get_roles
-from app.backend.schemas.rol_schema import RolRead
+from backend.repositories.rol_repository import get_roles
+from backend.schemas.rol_schema import RolRead
 
 def map_rol_to_schema(rol) -> RolRead:
     return RolRead.model_validate(rol)

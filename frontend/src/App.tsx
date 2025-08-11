@@ -1,14 +1,18 @@
 import { Admin, Resource } from "react-admin";
 import { userDataProvider } from "./userDataProvider";
 import { Layout } from "./Layout";
-import UserList from "./list/UserList";
-import UserCreate from "./create/UserCreate";
-import UserEdit from "./edit/UserEdit";
+import UserList from "./usuario/UserList";
+import UserCreate from "./usuario/UserCreate";
+import UserEdit from "./usuario/UserEdit";
 import PersonIcon from '@mui/icons-material/Person';
 import GroupIcon from "@mui/icons-material/Group";
 import { ClienteList } from "./cliente/ClienteList";
 import { ClienteCreate } from "./cliente/ClienteCreate";
 import { ClienteEdit } from "./cliente/ClienteEdit";
+import BuildIcon from '@mui/icons-material/Build';
+import { OrdenTrabajoList } from "./OrdenTrabajo/OrdenTrabajoList";
+import { OrdenTrabajoCreate } from "./OrdenTrabajo/OrdenTrabajoCreate";
+import { OrdenTrabajoEdit } from "./OrdenTrabajo/OrdenTrabajoEdit";
 
 export const App = () => (
   <Admin layout={Layout} dataProvider={userDataProvider}>
@@ -27,6 +31,14 @@ export const App = () => (
       edit={ClienteEdit}
       options={{ label: "Clientes", hasDelete: true }}
       icon={GroupIcon}
+    />
+    <Resource
+      name="ordenes_trabajo"
+      list={OrdenTrabajoList}
+      create={OrdenTrabajoCreate}
+      edit={OrdenTrabajoEdit}
+      options={{ label: "Órdenes de Trabajo", hasDelete: true }}
+      icon={BuildIcon}
     />
   </Admin>
 );

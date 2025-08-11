@@ -1,0 +1,33 @@
+import { List, Datagrid, TextField, NumberField, DateField, EditButton, DeleteButton } from 'react-admin';
+
+export const OrdenTrabajoList = (props: any) => (
+    <List {...props} title="Órdenes de Trabajo">
+        <Datagrid rowClick="edit">
+            <NumberField source="id_orden_trabajo" label="ID" />
+            <NumberField source="cliente_id" label="Cliente" />
+            <NumberField source="id_tipo_troquelado" label="Tipo Troquelado" />
+            <NumberField source="id_sistema" label="Sistema" />
+            <NumberField source="id_etapa" label="Etapa" />
+            <NumberField source="id_usuario" label="Usuario" />
+            <TextField source="numero_lote" label="Lote" />
+            <DateField source="fecha_creacion" label="Fecha Creación" />
+            <TextField source="estado_actual" label="Estado" />
+            <TextField source="soporte" label="Soporte" />
+            <NumberField source="alto_mm" label="Alto (mm)" />
+            <NumberField source="ancho_mm" label="Ancho (mm)" />
+            <NumberField source="z" label="Z" />
+            <NumberField source="desarrollo" label="Desarrollo" />
+            <NumberField source="alto_desarrollo" label="Alto Desarrollo" />
+            <NumberField source="metros" label="Metros" />
+            <NumberField source="demasia" label="Demasía" />
+            <NumberField source="cantidad_rollos" label="Rollos" />
+            <TextField source="banda" label="Banda" />
+            <TextField source="lado" label="Lado" />
+            <TextField source="sentido_bobina" label="Sentido Bobina" />
+            <NumberField source="cantidad_etiquetas" label="Etiquetas" />
+            <TextField source="observaciones" label="Observaciones" />
+            <EditButton />
+            <DeleteButton />
+        </Datagrid>
+    </List>
+);
