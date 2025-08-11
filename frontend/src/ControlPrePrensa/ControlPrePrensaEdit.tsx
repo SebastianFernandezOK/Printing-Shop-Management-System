@@ -1,13 +1,14 @@
 import { Edit, SimpleForm, NumberInput, BooleanInput, TextInput, ReferenceInput, SelectInput } from 'react-admin';
+import React from 'react';
 
 export const ControlPrePrensaEdit = (props: any) => (
     <Edit {...props} title="Editar Control PrePrensa">
         <SimpleForm>
             <ReferenceInput source="id_orden_trabajo" reference="ordenes_trabajo" label="Orden de Trabajo" required>
-                <SelectInput optionText="numero_lote" />
+                <SelectInput optionText="numero_lote" optionValue="id" />
             </ReferenceInput>
             <ReferenceInput source="id_usuario" reference="users" label="Usuario" required>
-                <SelectInput optionText="email" />
+                <SelectInput optionText="email" optionValue="id" />
             </ReferenceInput>
             <BooleanInput source="tipo_curvas" label="Tipo Curvas" />
             <BooleanInput source="banda_2mm_troq" label="Banda 2mm Troq" />
