@@ -25,6 +25,9 @@ const mapId = (data: any, resource?: string) => {
             if (resource === 'controles_calidad' && item.id_control_calidad !== undefined) {
                 return { ...item, id: item.id_control_calidad };
             }
+            if (resource === 'remitos' && item.id_remito !== undefined) {
+                return { ...item, id: item.id_remito };
+            }
             return {
                 ...item,
                 id: item.id_usuario !== undefined ? item.id_usuario
@@ -55,6 +58,9 @@ const mapId = (data: any, resource?: string) => {
     }
     if (resource === 'controles_calidad' && data.id_control_calidad !== undefined) {
         return { ...data, id: data.id_control_calidad };
+    }
+    if (resource === 'remitos' && data.id_remito !== undefined) {
+        return { ...data, id: data.id_remito };
     }
     return {
         ...data,
@@ -121,6 +127,8 @@ export const userDataProvider: DataProvider = {
                 data.id = data.id_control_post_prensa;
             } else if (resource === 'controles_calidad' && data.id_control_calidad !== undefined) {
                 data.id = data.id_control_calidad;
+            } else if (resource === 'remitos' && data.id_remito !== undefined) {
+                data.id = data.id_remito;
             }
             return { data };
         });
@@ -140,7 +148,9 @@ export const userDataProvider: DataProvider = {
                             ? { ...json, id: json.id_control_prensa }
                             : resource === 'controles_calidad' && json.id_control_calidad !== undefined
                                 ? { ...json, id: json.id_control_calidad }
-                                : { ...json, id: json.id_control_preprensa !== undefined ? json.id_control_preprensa : json.id },
+                                : resource === 'remitos' && json.id_remito !== undefined
+                                    ? { ...json, id: json.id_remito }
+                                    : { ...json, id: json.id_control_preprensa !== undefined ? json.id_control_preprensa : json.id },
         })),
     update: (resource, params) => {
         let id = params.id;
@@ -161,7 +171,9 @@ export const userDataProvider: DataProvider = {
                             ? { ...json, id: json.id_control_prensa }
                             : resource === 'controles_calidad' && json.id_control_calidad !== undefined
                                 ? { ...json, id: json.id_control_calidad }
-                                : mapId(json),
+                                : resource === 'remitos' && json.id_remito !== undefined
+                                    ? { ...json, id: json.id_remito }
+                                    : mapId(json),
         }));
     },
     delete: (resource, params) => {
@@ -211,6 +223,9 @@ export const userDataProvider: DataProvider = {
                 }
                 if (resource === 'controles_calidad' && json.id_control_calidad !== undefined) {
                     return { ...json, id: json.id_control_calidad };
+                }
+                if (resource === 'remitos' && json.id_remito !== undefined) {
+                    return { ...json, id: json.id_remito };
                 }
                 return { ...json, id: json.id };
             })

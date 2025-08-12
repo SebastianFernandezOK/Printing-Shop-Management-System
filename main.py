@@ -13,6 +13,8 @@ from backend.controllers.control_prensa_controller import router as control_pren
 from backend.controllers.maquina_controller import router as maquina_router
 from backend.controllers.control_post_prensa_controller import router as control_post_prensa_router
 from backend.controllers.control_calidad_controller import router as control_calidad_router
+from backend.controllers.remito_controller import router as remito_router
+from backend.controllers.auth_controller import router as auth_router
 from backend.core.config import settings
 
 app = FastAPI()
@@ -42,6 +44,8 @@ app.include_router(control_prensa_router)
 app.include_router(maquina_router)
 app.include_router(control_post_prensa_router)
 app.include_router(control_calidad_router)
+app.include_router(remito_router)
+app.include_router(auth_router)
 
 # Aquí se incluirán los routers de los controladores
 

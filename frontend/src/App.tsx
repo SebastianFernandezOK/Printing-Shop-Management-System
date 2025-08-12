@@ -30,6 +30,12 @@ import { ControlPostPrensaEdit } from "./ControlPostPrensa/ControlPostPrensaEdit
 import { ControlCalidadFinalList } from "./ControlCalidadFinal/ControlCalidadFinalList";
 import { ControlCalidadFinalCreate } from "./ControlCalidadFinal/ControlCalidadFinalCreate";
 import { ControlCalidadFinalEdit } from "./ControlCalidadFinal/ControlCalidadFinalEdit";
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import { RemitoList } from "./remito/RemitoList";
+import { RemitoCreate } from "./remito/RemitoCreate";
+import { RemitoEdit } from "./remito/RemitoEdit";
+import { RemitoShow } from "./remito/RemitoShow";
+import { authProvider } from "./authProvider";
 
 export const App = () => {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
@@ -37,6 +43,7 @@ export const App = () => {
 
   return (
     <Admin
+      authProvider={authProvider}
       layout={(props) => <Layout {...props} mode={mode} setMode={setMode} />}
       dataProvider={userDataProvider}
       theme={theme}
@@ -96,6 +103,17 @@ export const App = () => {
         edit={ControlCalidadFinalEdit}
         options={{ label: "Control Calidad Final", hasDelete: true }}
         icon={AssignmentTurnedInIcon}
+      />
+      <Resource
+        name="remitos"
+        list={RemitoList}
+        create={RemitoCreate}
+        edit={RemitoEdit}
+        show={RemitoShow}
+        options={{ label: "Remitos", hasDelete: true }}
+        icon={LocalShippingIcon}
+        recordRepresentation="numero_remito"
+        itemComponent={undefined}
       />
       <Resource name="roles" options={{ label: "Roles" }} />
     </Admin>
