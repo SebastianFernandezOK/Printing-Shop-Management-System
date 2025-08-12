@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List, Dict, Any
 from backend.core.config import get_db
-from backend.schemas.usuario_schema import UsuarioCreate, UsuarioRead
+from backend.schemas.usuario_schema import UsuarioCreate, UsuarioRead, UsuarioUpdate
 from backend.services.usuario_service import UserService
 
 router = APIRouter(prefix="/users", tags=["users"])
@@ -36,7 +36,7 @@ async def create_user(user: UsuarioCreate, db: AsyncSession = Depends(get_db)):
     return await service.create_user(user)
 
 @router.put("/{user_id}", response_model=UsuarioRead)
-async def update_user(user_id: int, user: UsuarioCreate, db: AsyncSession = Depends(get_db)):
+async def update_user(user_id: int, user: UsuarioUpdate, db: AsyncSession = Depends(get_db)):
     service = UserService(db)
     updated_user = await service.update_user(user_id, user)
     if not updated_user:

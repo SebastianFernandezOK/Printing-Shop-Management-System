@@ -8,7 +8,7 @@ export const ControlPrePrensaList = (props: any) => (
                 <TextField source="numero_lote" />
             </ReferenceField>
             <ReferenceField source="id_usuario" reference="users" label="Usuario">
-                <TextField source="email" />
+                <TextField source="nombre" />
             </ReferenceField>
             <BooleanField source="tipo_curvas" label="Tipo Curvas" />
             <BooleanField source="banda_2mm_troq" label="Banda 2mm Troq" />

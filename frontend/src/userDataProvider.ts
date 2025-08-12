@@ -13,6 +13,12 @@ const mapId = (data: any, resource?: string) => {
             if (resource === 'controles_preprensa' && item.id_control_preprensa !== undefined) {
                 return { ...item, id: item.id_control_preprensa };
             }
+            if (resource === 'controles_prensa' && item.id_control_prensa !== undefined) {
+                return { ...item, id: item.id_control_prensa };
+            }
+            if (resource === 'maquinas' && item.id_maquina !== undefined) {
+                return { ...item, id: item.id_maquina };
+            }
             return {
                 ...item,
                 id: item.id_usuario !== undefined ? item.id_usuario
@@ -32,6 +38,12 @@ const mapId = (data: any, resource?: string) => {
     if (resource === 'controles_preprensa' && data.id_control_preprensa !== undefined) {
         return { ...data, id: data.id_control_preprensa };
     }
+    if (resource === 'controles_prensa' && data.id_control_prensa !== undefined) {
+        return { ...data, id: data.id_control_prensa };
+    }
+    if (resource === 'maquinas' && data.id_maquina !== undefined) {
+        return { ...data, id: data.id_maquina };
+    }
     return {
         ...data,
         id: data.id_usuario !== undefined ? data.id_usuario
@@ -50,7 +62,6 @@ export const userDataProvider: DataProvider = {
         const { page = 1, perPage = 10 } = params.pagination || {};
         const query = `?page=${page}&perPage=${perPage}`;
         return httpClient(`${apiUrl}/${resource}/${query}`).then(({ json }) => {
-            // Si la respuesta es un array (como en troquelados), adaptarla
             let data;
             let total;
             if (Array.isArray(json)) {
@@ -60,11 +71,8 @@ export const userDataProvider: DataProvider = {
                 data = mapId(json.data, resource);
                 total = json.total;
             }
-            if (resource === 'ordenes_trabajo') {
-                console.log('DEBUG ordenes_trabajo options:', data);
-            }
             if (resource === 'users') {
-                console.log(`getList [${resource}] options:`, data.map(d => ({ id: d.id, ...d })));
+                data = data.map((u: any) => ({ ...u, id: u.id_usuario !== undefined ? u.id_usuario : u.id }));
             }
             return {
                 data,
@@ -74,13 +82,11 @@ export const userDataProvider: DataProvider = {
     },
     getOne: (resource, params) => {
         let id = params.id;
-        // Para controles_preprensa, el id real es id_control_preprensa
         if (resource === 'controles_preprensa' && typeof params.id !== 'undefined') {
             id = params.id;
         }
         return httpClient(`${apiUrl}/${resource}/${id}`).then(({ json }) => {
             let data = { ...json };
-            // Forzar mapeo de id para recursos con id personalizado
             if (resource === 'users' && data.id_usuario !== undefined) {
                 data.id = data.id_usuario;
             } else if (resource === 'ordenes_trabajo' && data.id_orden_trabajo !== undefined) {
@@ -95,6 +101,10 @@ export const userDataProvider: DataProvider = {
                 data.id = data.id_etapa;
             } else if (resource === 'controles_preprensa' && data.id_control_preprensa !== undefined) {
                 data.id = data.id_control_preprensa;
+            } else if (resource === 'controles_prensa' && data.id_control_prensa !== undefined) {
+                data.id = data.id_control_prensa;
+            } else if (resource === 'maquinas' && data.id_maquina !== undefined) {
+                data.id = data.id_maquina;
             }
             return { data };
         });
@@ -104,10 +114,13 @@ export const userDataProvider: DataProvider = {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
-            data: {
-                ...json,
-                id: json.id_control_preprensa !== undefined ? json.id_control_preprensa : json.id,
-            },
+            data: resource === 'maquinas' && json.id_maquina !== undefined
+                ? { ...json, id: json.id_maquina }
+                : resource === 'users' && json.id_usuario !== undefined
+                    ? { ...json, id: json.id_usuario }
+                    : resource === 'controles_prensa' && json.id_control_prensa !== undefined
+                        ? { ...json, id: json.id_control_prensa }
+                        : { ...json, id: json.id_control_preprensa !== undefined ? json.id_control_preprensa : json.id },
         })),
     update: (resource, params) => {
         let id = params.id;
@@ -118,7 +131,13 @@ export const userDataProvider: DataProvider = {
             method: 'PUT',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
-            data: mapId(json),
+            data: resource === 'maquinas' && json.id_maquina !== undefined
+                ? { ...json, id: json.id_maquina }
+                : resource === 'users' && json.id_usuario !== undefined
+                    ? { ...json, id: json.id_usuario }
+                    : resource === 'controles_prensa' && json.id_control_prensa !== undefined
+                        ? { ...json, id: json.id_control_prensa }
+                        : mapId(json),
         }));
     },
     delete: (resource, params) => {
@@ -129,10 +148,44 @@ export const userDataProvider: DataProvider = {
         return httpClient(`${apiUrl}/${resource}/${id}`, {
             method: 'DELETE',
         }).then(() => ({
-            data: (params.previousData ?? { id: params.id }) as any,
+            data: (params.previousData && params.previousData.id_usuario !== undefined)
+                ? { ...params.previousData, id: params.previousData.id_usuario }
+                : (params.previousData ?? { id: params.id }) as any,
         }));
     },
-    getMany: () => Promise.resolve({ data: [] }),
+    getMany: (resource, params) => {
+        // Si tu API no soporta /resource?ids=1,2,3, emula con Promise.all(getOne)
+        return Promise.all(params.ids.map(id =>
+            httpClient(`${apiUrl}/${resource}/${id}`).then(({ json }) => {
+                // Mapeo de id para recursos personalizados
+                if (resource === 'clientes' && json.id_cliente !== undefined) {
+                    return { ...json, id: json.id_cliente };
+                }
+                if (resource === 'users' && json.id_usuario !== undefined) {
+                    return { ...json, id: json.id_usuario };
+                }
+                if (resource === 'ordenes_trabajo' && json.id_orden_trabajo !== undefined) {
+                    return { ...json, id: json.id_orden_trabajo };
+                }
+                if (resource === 'troquelados' && json.id_troquelado !== undefined) {
+                    return { ...json, id: json.id_troquelado };
+                }
+                if (resource === 'sistemas' && json.id_sistema_impresion !== undefined) {
+                    return { ...json, id: json.id_sistema_impresion };
+                }
+                if (resource === 'etapas' && json.id_etapa !== undefined) {
+                    return { ...json, id: json.id_etapa };
+                }
+                if (resource === 'controles_prensa' && json.id_control_prensa !== undefined) {
+                    return { ...json, id: json.id_control_prensa };
+                }
+                if (resource === 'maquinas' && json.id_maquina !== undefined) {
+                    return { ...json, id: json.id_maquina };
+                }
+                return { ...json, id: json.id };
+            })
+        )).then(data => ({ data }));
+    },
     getManyReference: () => Promise.resolve({ data: [], total: 0 }),
     updateMany: () => Promise.resolve({ data: [] }),
     deleteMany: (resource, params) => {

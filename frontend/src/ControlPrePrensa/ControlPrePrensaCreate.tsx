@@ -7,7 +7,7 @@ export const ControlPrePrensaCreate = (props: any) => (
                 <SelectInput optionText="numero_lote" />
             </ReferenceInput>
             <ReferenceInput source="id_usuario" reference="users" label="Usuario" required>
-                <SelectInput optionText="email" />
+                <SelectInput optionText="nombre" />
             </ReferenceInput>
             <BooleanInput source="tipo_curvas" label="Tipo Curvas" />
             <BooleanInput source="banda_2mm_troq" label="Banda 2mm Troq" />

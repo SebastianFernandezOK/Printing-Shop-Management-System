@@ -17,6 +17,10 @@ import { ControlPrePrensaList } from "./ControlPrePrensa/ControlPrePrensaList";
 import { ControlPrePrensaCreate } from "./ControlPrePrensa/ControlPrePrensaCreate";
 import { ControlPrePrensaEdit } from "./ControlPrePrensa/ControlPrePrensaEdit";
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import { ControlPrensaList } from "./ControlPrensa/ControlPrensaList";
+import { ControlPrensaCreate } from "./ControlPrensa/ControlPrensaCreate";
+import { ControlPrensaEdit } from "./ControlPrensa/ControlPrensaEdit";
+import PrintIcon from '@mui/icons-material/Print';
 
 export const App = () => (
   <Admin layout={Layout} dataProvider={userDataProvider}>
@@ -52,6 +56,15 @@ export const App = () => (
       options={{ label: "Control PrePrensa", hasDelete: true }}
       icon={AssignmentTurnedInIcon}
     />
+    <Resource
+      name="controles_prensa"
+      list={ControlPrensaList}
+      create={ControlPrensaCreate}
+      edit={ControlPrensaEdit}
+      options={{ label: "Control Prensa", hasDelete: true }}
+      icon={PrintIcon}
+    />
+    <Resource name="roles" options={{ label: "Roles" }} />
   </Admin>
 );
 

@@ -11,6 +11,9 @@ class UsuarioBase(BaseModel):
 class UsuarioCreate(UsuarioBase):
     password: str
 
+class UsuarioUpdate(UsuarioBase):
+    password: Optional[str] = None
+
 class UsuarioRead(UsuarioBase):
     id_usuario: int
     creado_en: Optional[datetime]

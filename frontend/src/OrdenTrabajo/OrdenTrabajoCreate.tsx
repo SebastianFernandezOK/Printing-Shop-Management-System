@@ -16,7 +16,7 @@ export const OrdenTrabajoCreate = (props: any) => (
                 <SelectInput optionText="nombre" />
             </ReferenceInput>
             <ReferenceInput source="id_usuario" reference="users" label="Usuario">
-                <SelectInput optionText="email" />
+                <SelectInput optionText="nombre" />
             </ReferenceInput>
             <TextInput source="numero_lote" label="Lote" />
             {/* <DateInput source="fecha_creacion" label="Fecha Creación" /> */}

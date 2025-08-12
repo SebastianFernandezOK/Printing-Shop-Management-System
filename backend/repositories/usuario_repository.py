@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy import func
 from backend.models.usuario_model import Usuario
-from backend.schemas.usuario_schema import UsuarioCreate
+from backend.schemas.usuario_schema import UsuarioCreate, UsuarioUpdate
 from typing import Optional, List, Tuple
 
 class UserRepository:
@@ -36,14 +36,15 @@ class UserRepository:
         total = await self.db.scalar(select(func.count()).select_from(Usuario))
         return usuarios, total
 
-    async def update(self, user_id: int, user: UsuarioCreate, password_hash: str) -> Optional[Usuario]:
+    async def update(self, user_id: int, user: UsuarioUpdate, password_hash: Optional[str]) -> Optional[Usuario]:
         db_user = await self.get_by_id(user_id)
         if not db_user:
             return None
         db_user.id_rol = user.id_rol
         db_user.nombre = user.nombre
         db_user.email = user.email
-        db_user.password_hash = password_hash
+        if password_hash:
+            db_user.password_hash = password_hash
         db_user.is_activo = user.is_activo
         await self.db.commit()
         await self.db.refresh(db_user)

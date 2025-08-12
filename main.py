@@ -9,6 +9,8 @@ from backend.controllers.troquelado_controller import router as troquelado_route
 from backend.controllers.sistema_controller import router as sistema_router
 from backend.controllers.etapa_controller import router as etapa_router
 from backend.controllers.control_preprensa_controller import router as control_preprensa_router
+from backend.controllers.control_prensa_controller import router as control_prensa_router
+from backend.controllers.maquina_controller import router as maquina_router
 from backend.core.config import settings
 
 app = FastAPI()
@@ -34,6 +36,8 @@ app.include_router(troquelado_router)
 app.include_router(sistema_router)
 app.include_router(etapa_router)
 app.include_router(control_preprensa_router)
+app.include_router(control_prensa_router)
+app.include_router(maquina_router)
 
 # Aquí se incluirán los routers de los controladores
 
