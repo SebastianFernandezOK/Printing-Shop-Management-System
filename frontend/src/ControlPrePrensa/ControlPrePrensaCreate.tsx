@@ -1,4 +1,4 @@
-import { Create, SimpleForm, NumberInput, BooleanInput, TextInput, ReferenceInput, SelectInput } from 'react-admin';
+import { Create, SimpleForm,  BooleanInput, TextInput, ReferenceInput, SelectInput } from 'react-admin';
 
 export const ControlPrePrensaCreate = (props: any) => (
     <Create {...props} title="Crear Control PrePrensa">

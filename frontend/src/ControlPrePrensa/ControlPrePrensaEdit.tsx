@@ -1,5 +1,5 @@
-import { Edit, SimpleForm, NumberInput, BooleanInput, TextInput, ReferenceInput, SelectInput } from 'react-admin';
-import React from 'react';
+import { Edit, SimpleForm, BooleanInput, TextInput, ReferenceInput, SelectInput } from 'react-admin';
+
 
 export const ControlPrePrensaEdit = (props: any) => (
     <Edit {...props} title="Editar Control PrePrensa">

@@ -19,6 +19,12 @@ const mapId = (data: any, resource?: string) => {
             if (resource === 'maquinas' && item.id_maquina !== undefined) {
                 return { ...item, id: item.id_maquina };
             }
+            if (resource === 'controles_postprensa' && item.id_control_post_prensa !== undefined) {
+                return { ...item, id: item.id_control_post_prensa };
+            }
+            if (resource === 'controles_calidad' && item.id_control_calidad !== undefined) {
+                return { ...item, id: item.id_control_calidad };
+            }
             return {
                 ...item,
                 id: item.id_usuario !== undefined ? item.id_usuario
@@ -43,6 +49,12 @@ const mapId = (data: any, resource?: string) => {
     }
     if (resource === 'maquinas' && data.id_maquina !== undefined) {
         return { ...data, id: data.id_maquina };
+    }
+    if (resource === 'controles_postprensa' && data.id_control_post_prensa !== undefined) {
+        return { ...data, id: data.id_control_post_prensa };
+    }
+    if (resource === 'controles_calidad' && data.id_control_calidad !== undefined) {
+        return { ...data, id: data.id_control_calidad };
     }
     return {
         ...data,
@@ -105,6 +117,10 @@ export const userDataProvider: DataProvider = {
                 data.id = data.id_control_prensa;
             } else if (resource === 'maquinas' && data.id_maquina !== undefined) {
                 data.id = data.id_maquina;
+            } else if (resource === 'controles_postprensa' && data.id_control_post_prensa !== undefined) {
+                data.id = data.id_control_post_prensa;
+            } else if (resource === 'controles_calidad' && data.id_control_calidad !== undefined) {
+                data.id = data.id_control_calidad;
             }
             return { data };
         });
@@ -114,13 +130,17 @@ export const userDataProvider: DataProvider = {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
-            data: resource === 'maquinas' && json.id_maquina !== undefined
-                ? { ...json, id: json.id_maquina }
-                : resource === 'users' && json.id_usuario !== undefined
-                    ? { ...json, id: json.id_usuario }
-                    : resource === 'controles_prensa' && json.id_control_prensa !== undefined
-                        ? { ...json, id: json.id_control_prensa }
-                        : { ...json, id: json.id_control_preprensa !== undefined ? json.id_control_preprensa : json.id },
+            data: resource === 'controles_postprensa' && json.id_control_post_prensa !== undefined
+                ? { ...json, id: json.id_control_post_prensa }
+                : resource === 'maquinas' && json.id_maquina !== undefined
+                    ? { ...json, id: json.id_maquina }
+                    : resource === 'users' && json.id_usuario !== undefined
+                        ? { ...json, id: json.id_usuario }
+                        : resource === 'controles_prensa' && json.id_control_prensa !== undefined
+                            ? { ...json, id: json.id_control_prensa }
+                            : resource === 'controles_calidad' && json.id_control_calidad !== undefined
+                                ? { ...json, id: json.id_control_calidad }
+                                : { ...json, id: json.id_control_preprensa !== undefined ? json.id_control_preprensa : json.id },
         })),
     update: (resource, params) => {
         let id = params.id;
@@ -131,13 +151,17 @@ export const userDataProvider: DataProvider = {
             method: 'PUT',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
-            data: resource === 'maquinas' && json.id_maquina !== undefined
-                ? { ...json, id: json.id_maquina }
-                : resource === 'users' && json.id_usuario !== undefined
-                    ? { ...json, id: json.id_usuario }
-                    : resource === 'controles_prensa' && json.id_control_prensa !== undefined
-                        ? { ...json, id: json.id_control_prensa }
-                        : mapId(json),
+            data: resource === 'controles_postprensa' && json.id_control_post_prensa !== undefined
+                ? { ...json, id: json.id_control_post_prensa }
+                : resource === 'maquinas' && json.id_maquina !== undefined
+                    ? { ...json, id: json.id_maquina }
+                    : resource === 'users' && json.id_usuario !== undefined
+                        ? { ...json, id: json.id_usuario }
+                        : resource === 'controles_prensa' && json.id_control_prensa !== undefined
+                            ? { ...json, id: json.id_control_prensa }
+                            : resource === 'controles_calidad' && json.id_control_calidad !== undefined
+                                ? { ...json, id: json.id_control_calidad }
+                                : mapId(json),
         }));
     },
     delete: (resource, params) => {
@@ -181,6 +205,12 @@ export const userDataProvider: DataProvider = {
                 }
                 if (resource === 'maquinas' && json.id_maquina !== undefined) {
                     return { ...json, id: json.id_maquina };
+                }
+                if (resource === 'controles_postprensa' && json.id_control_post_prensa !== undefined) {
+                    return { ...json, id: json.id_control_post_prensa };
+                }
+                if (resource === 'controles_calidad' && json.id_control_calidad !== undefined) {
+                    return { ...json, id: json.id_control_calidad };
                 }
                 return { ...json, id: json.id };
             })
