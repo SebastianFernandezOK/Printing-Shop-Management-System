@@ -1,4 +1,5 @@
-import { Admin, Resource } from "react-admin";
+import { Admin, Resource, CustomRoutes } from "react-admin";
+import { Route } from "react-router-dom";
 import { userDataProvider } from "./userDataProvider";
 import { Layout } from "./Layout";
 import { useState } from "react";
@@ -36,6 +37,7 @@ import { RemitoCreate } from "./remito/RemitoCreate";
 import { RemitoEdit } from "./remito/RemitoEdit";
 import { RemitoShow } from "./remito/RemitoShow";
 import { authProvider } from "./authProvider";
+import { OrdenTrabajoLoteSearch } from "./OrdenTrabajo/OrdenTrabajoLoteSearch";
 
 export const App = () => {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
@@ -48,6 +50,9 @@ export const App = () => {
       dataProvider={userDataProvider}
       theme={theme}
     >
+      <CustomRoutes>
+        <Route path="/buscar-orden-lote" element={<OrdenTrabajoLoteSearch />} />
+      </CustomRoutes>
       <Resource
         name="users"
         list={UserList}
@@ -113,9 +118,7 @@ export const App = () => {
         options={{ label: "Remitos", hasDelete: true }}
         icon={LocalShippingIcon}
         recordRepresentation="numero_remito"
-        itemComponent={undefined}
       />
-      <Resource name="roles" options={{ label: "Roles" }} />
     </Admin>
   );
 };
