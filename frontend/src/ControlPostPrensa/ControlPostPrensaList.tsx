@@ -1,4 +1,5 @@
-import { List, Datagrid, TextField, ReferenceField, BooleanField } from 'react-admin';
+import { List, Datagrid, TextField, ReferenceField } from 'react-admin';
+import BooleanPrettyField from '../BooleanPrettyField';
 
 export const ControlPostPrensaList = (props: any) => (
     <List {...props} title="Control PostPrensa">
@@ -13,23 +14,23 @@ export const ControlPostPrensaList = (props: any) => (
             <ReferenceField source="id_maquina" reference="maquinas" label="Máquina">
                 <TextField source="nombre" />
             </ReferenceField>
-            <BooleanField source="stamping_color" label="Stamping Color" />
-            <BooleanField source="stamping_registro" label="Stamping Registro" />
-            <BooleanField source="medio_corte_medida" label="Medio Corte Medida" />
-            <BooleanField source="medio_corte_liner" label="Medio Corte Liner" />
-            <BooleanField source="relieve_registro" label="Relieve Registro" />
-            <BooleanField source="relieve_altura" label="Relieve Altura" />
-            <BooleanField source="relieve_liner" label="Relieve Liner" />
-            <BooleanField source="serigrafia_shablon_nro" label="Serigrafía Shablon Nro" />
-            <BooleanField source="serigrafia_volumen" label="Serigrafía Volumen" />
-            <BooleanField source="serigrafia_control_frote" label="Serigrafía Control Frote" />
-            <BooleanField source="serigrafia_registro" label="Serigrafía Registro" />
-            <BooleanField source="exam_impresion" label="Exam Impresión" />
-            <BooleanField source="exam_stamping" label="Exam Stamping" />
-            <BooleanField source="exam_relieve" label="Exam Relieve" />
-            <BooleanField source="exam_serigrafia" label="Exam Serigrafía" />
-            <BooleanField source="exam_troquelado" label="Exam Troquelado" />
-            <BooleanField source="exam_cantidad" label="Exam Cantidad" />
+            <BooleanPrettyField source="stamping_color" label="Stamping Color" />
+            <BooleanPrettyField source="stamping_registro" label="Stamping Registro" />
+            <BooleanPrettyField source="medio_corte_medida" label="Medio Corte Medida" />
+            <BooleanPrettyField source="medio_corte_liner" label="Medio Corte Liner" />
+            <BooleanPrettyField source="relieve_registro" label="Relieve Registro" />
+            <BooleanPrettyField source="relieve_altura" label="Relieve Altura" />
+            <BooleanPrettyField source="relieve_liner" label="Relieve Liner" />
+            <BooleanPrettyField source="serigrafia_shablon_nro" label="Serigrafía Shablon Nro" />
+            <BooleanPrettyField source="serigrafia_volumen" label="Serigrafía Volumen" />
+            <BooleanPrettyField source="serigrafia_control_frote" label="Serigrafía Control Frote" />
+            <BooleanPrettyField source="serigrafia_registro" label="Serigrafía Registro" />
+            <BooleanPrettyField source="exam_impresion" label="Exam Impresión" />
+            <BooleanPrettyField source="exam_stamping" label="Exam Stamping" />
+            <BooleanPrettyField source="exam_relieve" label="Exam Relieve" />
+            <BooleanPrettyField source="exam_serigrafia" label="Exam Serigrafía" />
+            <BooleanPrettyField source="exam_troquelado" label="Exam Troquelado" />
+            <BooleanPrettyField source="exam_cantidad" label="Exam Cantidad" />
             <TextField source="firma_stamping" label="Firma Stamping" />
             <TextField source="firma_relieve" label="Firma Relieve" />
             <TextField source="firma_serigrafia" label="Firma Serigrafía" />

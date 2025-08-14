@@ -1,4 +1,5 @@
-import { List, Datagrid, TextField, ReferenceField, BooleanField } from 'react-admin';
+import { List, Datagrid, TextField, ReferenceField } from 'react-admin';
+import BooleanPrettyField from '../BooleanPrettyField';
 
 export const ControlPrensaList = (props: any) => (
     <List {...props} title="Control Prensa">
@@ -13,19 +14,19 @@ export const ControlPrensaList = (props: any) => (
             <ReferenceField source="id_maquina" reference="maquinas" label="Máquina">
                 <TextField source="nombre" />
             </ReferenceField>
-            <BooleanField source="polimeros" label="Polímeros" />
-            <BooleanField source="textos" label="Textos" />
-            <BooleanField source="color" label="Color" />
-            <BooleanField source="registro" label="Registro" />
-            <BooleanField source="resistencia_frote" label="Resistencia Frote" />
-            <BooleanField source="medidas" label="Medidas" />
-            <BooleanField source="liner" label="Liner" />
-            <BooleanField source="metros_impresos" label="Metros Impresos" />
-            <BooleanField source="cantidad_tinta" label="Cantidad Tinta" />
-            <BooleanField source="cantidad_barniz" label="Cantidad Barniz" />
+            <BooleanPrettyField source="polimeros" label="Polímeros" />
+            <BooleanPrettyField source="textos" label="Textos" />
+            <BooleanPrettyField source="color" label="Color" />
+            <BooleanPrettyField source="registro" label="Registro" />
+            <BooleanPrettyField source="resistencia_frote" label="Resistencia Frote" />
+            <BooleanPrettyField source="medidas" label="Medidas" />
+            <BooleanPrettyField source="liner" label="Liner" />
+            <BooleanPrettyField source="metros_impresos" label="Metros Impresos" />
+            <BooleanPrettyField source="cantidad_tinta" label="Cantidad Tinta" />
+            <BooleanPrettyField source="cantidad_barniz" label="Cantidad Barniz" />
             {/* Bobinas */}
             {[...Array(18)].map((_, i) => (
-                <BooleanField key={i} source={`bobina_${i+1}`} label={`Bobina ${i+1}`} />
+                <BooleanPrettyField key={i} source={`bobina_${i+1}`} label={`Bobina ${i+1}`} />
             ))}
             <TextField source="observaciones" label="Observaciones" />
         </Datagrid>

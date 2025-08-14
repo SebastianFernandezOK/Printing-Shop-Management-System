@@ -1,4 +1,5 @@
-import { List, Datagrid, TextField, ReferenceField, BooleanField, DateField } from 'react-admin';
+import { List, Datagrid, TextField, ReferenceField, DateField } from 'react-admin';
+import BooleanPrettyField from '../BooleanPrettyField';
 
 export const ControlCalidadFinalList = (props: any) => (
     <List {...props} title="Control Calidad Final">
@@ -11,7 +12,7 @@ export const ControlCalidadFinalList = (props: any) => (
                 <TextField source="nombre" />
             </ReferenceField>
             <DateField source="fecha_control" label="Fecha de Control" />
-            <BooleanField source="aprobado" label="Aprobado" />
+            <BooleanPrettyField source="aprobado" label="Aprobado" />
             <TextField source="cantidad_inspeccionada" label="Cantidad Inspeccionada" />
             <TextField source="cantidad_defectuosa" label="Cantidad Defectuosa" />
             <TextField source="observaciones" label="Observaciones" />

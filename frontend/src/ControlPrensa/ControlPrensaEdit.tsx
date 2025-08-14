@@ -1,4 +1,5 @@
-import { Edit, SimpleForm, ReferenceInput, SelectInput, TextInput, BooleanInput } from 'react-admin';
+import { Edit, SimpleForm, ReferenceInput, SelectInput, TextInput } from 'react-admin';
+import BooleanPrettyInput from '../BooleanPrettyInput';
 
 export const ControlPrensaEdit = (props: any) => (
     <Edit {...props} title="Editar Control Prensa">
@@ -12,18 +13,18 @@ export const ControlPrensaEdit = (props: any) => (
             <ReferenceInput source="id_maquina" reference="maquinas" label="Máquina">
                 <SelectInput optionText="nombre" />
             </ReferenceInput>
-            <BooleanInput source="polimeros" label="Polímeros" />
-            <BooleanInput source="textos" label="Textos" />
-            <BooleanInput source="color" label="Color" />
-            <BooleanInput source="registro" label="Registro" />
-            <BooleanInput source="resistencia_frote" label="Resistencia Frote" />
-            <BooleanInput source="medidas" label="Medidas" />
-            <BooleanInput source="liner" label="Liner" />
-            <BooleanInput source="metros_impresos" label="Metros Impresos" />
-            <BooleanInput source="cantidad_tinta" label="Cantidad Tinta" />
-            <BooleanInput source="cantidad_barniz" label="Cantidad Barniz" />
+            <BooleanPrettyInput source="polimeros" label="Polímeros" />
+            <BooleanPrettyInput source="textos" label="Textos" />
+            <BooleanPrettyInput source="color" label="Color" />
+            <BooleanPrettyInput source="registro" label="Registro" />
+            <BooleanPrettyInput source="resistencia_frote" label="Resistencia Frote" />
+            <BooleanPrettyInput source="medidas" label="Medidas" />
+            <BooleanPrettyInput source="liner" label="Liner" />
+            <BooleanPrettyInput source="metros_impresos" label="Metros Impresos" />
+            <BooleanPrettyInput source="cantidad_tinta" label="Cantidad Tinta" />
+            <BooleanPrettyInput source="cantidad_barniz" label="Cantidad Barniz" />
             {[...Array(18)].map((_, i) => (
-                <BooleanInput key={i} source={`bobina_${i+1}`} label={`Bobina ${i+1}`} />
+                <BooleanPrettyInput key={i} source={`bobina_${i+1}`} label={`Bobina ${i+1}`} />
             ))}
             <TextInput source="observaciones" label="Observaciones" multiline />
         </SimpleForm>
