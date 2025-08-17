@@ -1,4 +1,4 @@
-import { Create, SimpleForm, TextInput,  BooleanInput } from 'react-admin';
+import { Create, SimpleForm, ReferenceInput, SelectInput, BooleanInput, TextInput } from 'react-admin';
 import { Paper, Box, Typography, Divider, useTheme } from '@mui/material';
 
 export const ControlPrePrensaCreate = (props: any) => {
@@ -11,8 +11,12 @@ export const ControlPrePrensaCreate = (props: any) => {
                     <Divider sx={{ mb: 2 }} />
                     <SimpleForm>
                         <Box display="grid" gridTemplateColumns={{ xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' }} gap={1.5}>
-                            <TextInput source="id_orden_trabajo" label="Orden de Trabajo" required size="small" />
-                            <TextInput source="id_usuario" label="Usuario" required size="small" />
+                            <ReferenceInput source="id_orden_trabajo" reference="ordenes_trabajo" label="Orden de Trabajo" required>
+                                <SelectInput optionText="numero_lote" optionValue="id" size="small" />
+                            </ReferenceInput>
+                            <ReferenceInput source="id_usuario" reference="users" label="Usuario" required>
+                                <SelectInput optionText="nombre" optionValue="id" size="small" />
+                            </ReferenceInput>
                             <BooleanInput source="tipo_curvas" label="Tipo Curvas" />
                             <BooleanInput source="banda_2mm_troq" label="Banda 2mm Troq" />
                             <BooleanInput source="img_incrustadas" label="Imágenes Incrustadas" />
