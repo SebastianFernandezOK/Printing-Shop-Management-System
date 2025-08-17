@@ -6,11 +6,9 @@ class OrdenTrabajoBase(BaseModel):
     cliente_id: int
     id_tipo_troquelado: Optional[int] = None
     id_sistema: Optional[int] = None
-    id_etapa: Optional[int] = None
     id_usuario: Optional[int] = None
     numero_lote: Optional[str] = None
     fecha_creacion: Optional[datetime] = None
-    estado_actual: Optional[str] = None
     soporte: Optional[str] = None
     alto_mm: Optional[float] = None
     ancho_mm: Optional[float] = None
@@ -34,6 +32,8 @@ class OrdenTrabajoUpdate(OrdenTrabajoBase):
 
 class OrdenTrabajoOut(OrdenTrabajoBase):
     id_orden_trabajo: int
+    id_etapa: Optional[int] = None
+    id_estado: Optional[int] = None
 
     class Config:
         from_attributes = True

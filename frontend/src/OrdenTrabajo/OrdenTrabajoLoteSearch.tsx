@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/HighlightOff';
 
 const apartados = [
     { label: 'Orden de Trabajo', fields: [
-        'numero_lote', 'fecha_creacion', 'estado_actual', 'soporte', 'alto_mm', 'ancho_mm', 'z', 'desarrollo', 'alto_desarrollo', 'metros', 'demasia', 'cantidad_rollos', 'banda', 'lado', 'sentido_bobina', 'cantidad_etiquetas', 'observaciones',
+        'numero_lote', 'fecha_creacion', 'estado_nombre', 'soporte', 'alto_mm', 'ancho_mm', 'z', 'desarrollo', 'alto_desarrollo', 'metros', 'demasia', 'cantidad_rollos', 'banda', 'lado', 'sentido_bobina', 'cantidad_etiquetas', 'observaciones',
         'cliente_nombre', 'tipo_troquelado_nombre', 'sistema_nombre', 'etapa_nombre', 'usuario_nombre'
     ] },
     { label: 'Control PrePrensa', fields: [
@@ -41,7 +41,7 @@ const fieldLabels: Record<string, string> = {
     usuario_nombre: 'Usuario',
     numero_lote: 'N° Lote',
     fecha_creacion: 'Fecha de Creación',
-    estado_actual: 'Estado',
+    estado_nombre: 'Estado',
     soporte: 'Soporte',
     alto_mm: 'Alto (mm)',
     ancho_mm: 'Ancho (mm)',
@@ -143,9 +143,12 @@ const fieldLabels: Record<string, string> = {
     usuario_remito_nombre: 'Responsable Remito',
 };
 
-function beautifyValue(val: any) {
+function beautifyValue(val: any, key?: string) {
     if (typeof val === 'boolean') {
         return val ? <CheckIcon color="success" fontSize="medium" sx={{ verticalAlign: 'middle' }} /> : <CloseIcon color="error" fontSize="medium" sx={{ verticalAlign: 'middle' }} />;
+    }
+    if (key === 'fecha_creacion' && val) {
+        return new Date(val).toLocaleString();
     }
     if (typeof val === 'string' && val.length > 60) {
         return <span style={{ wordBreak: 'break-word', whiteSpace: 'pre-line' }}>{val}</span>;
@@ -176,7 +179,7 @@ function renderSection(label: string, data: any, keys: string[]) {
                         {keys.map((f, idx) => (
                             <TableRow key={f} sx={{ background: idx % 2 === 0 ? '#f3f6fa' : '#fff' }}>
                                 <TableCell sx={{ fontWeight: 600, width: 260, color: 'primary.main', fontSize: 16 }}>{fieldLabels[f] || f.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</TableCell>
-                                <TableCell sx={{ fontSize: 16 }}>{beautifyValue(data[f])}</TableCell>
+                                <TableCell sx={{ fontSize: 16 }}>{beautifyValue(data[f], f)}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

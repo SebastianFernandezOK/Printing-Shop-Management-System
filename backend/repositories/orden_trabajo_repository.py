@@ -14,6 +14,9 @@ class OrdenTrabajoRepository:
 
     @staticmethod
     async def create(db: AsyncSession, orden_data: dict):
+        orden_data.pop('id_estado', None)
+        orden_data.pop('id_etapa', None)
+        orden_data.pop('fecha_creacion', None)
         db_orden = OrdenTrabajo(**orden_data)
         db.add(db_orden)
         await db.commit()
@@ -22,6 +25,9 @@ class OrdenTrabajoRepository:
 
     @staticmethod
     async def update(db: AsyncSession, db_orden: OrdenTrabajo, updates: dict):
+        updates.pop('id_estado', None)
+        updates.pop('id_etapa', None)
+        updates.pop('fecha_creacion', None)
         for key, value in updates.items():
             setattr(db_orden, key, value)
         await db.commit()

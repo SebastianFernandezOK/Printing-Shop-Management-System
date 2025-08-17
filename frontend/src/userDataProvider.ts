@@ -7,6 +7,9 @@ const httpClient = fetchUtils.fetchJson;
 const mapId = (data: any, resource?: string) => {
     if (Array.isArray(data)) {
         return data.map(item => {
+            if (resource === 'estados' && item.id_estado !== undefined) {
+                return { ...item, id: item.id_estado };
+            }
             if (resource === 'ordenes_trabajo' && item.id_orden_trabajo !== undefined) {
                 return { ...item, id: item.id_orden_trabajo };
             }
@@ -40,6 +43,9 @@ const mapId = (data: any, resource?: string) => {
                     : item.id,
             };
         });
+    }
+    if (resource === 'estados' && data.id_estado !== undefined) {
+        return { ...data, id: data.id_estado };
     }
     if (resource === 'ordenes_trabajo' && data.id_orden_trabajo !== undefined) {
         return { ...data, id: data.id_orden_trabajo };
@@ -129,6 +135,8 @@ export const userDataProvider: DataProvider = {
                 data.id = data.id_control_calidad;
             } else if (resource === 'remitos' && data.id_remito !== undefined) {
                 data.id = data.id_remito;
+            } else if (resource === 'estados' && data.id_estado !== undefined) {
+                data.id = data.id_estado;
             }
             return { data };
         });
@@ -226,6 +234,9 @@ export const userDataProvider: DataProvider = {
                 }
                 if (resource === 'remitos' && json.id_remito !== undefined) {
                     return { ...json, id: json.id_remito };
+                }
+                if (resource === 'estados' && json.id_estado !== undefined) {
+                    return { ...json, id: json.id_estado };
                 }
                 return { ...json, id: json.id };
             })

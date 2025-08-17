@@ -2,8 +2,6 @@ import { Admin, Resource, CustomRoutes } from "react-admin";
 import { Route } from "react-router-dom";
 import { userDataProvider } from "./userDataProvider";
 import { Layout } from "./Layout";
-import { useState } from "react";
-import { lightTheme, darkTheme } from "./theme";
 import UserList from "./usuario/UserList";
 import UserCreate from "./usuario/UserCreate";
 import UserEdit from "./usuario/UserEdit";
@@ -38,89 +36,87 @@ import { RemitoEdit } from "./remito/RemitoEdit";
 import { RemitoShow } from "./remito/RemitoShow";
 import { authProvider } from "./authProvider";
 import { OrdenTrabajoLoteSearch } from "./OrdenTrabajo/OrdenTrabajoLoteSearch";
+import { lightTheme, darkTheme } from "./theme";
 
-export const App = () => {
-  const [mode, setMode] = useState<'light' | 'dark'>('light');
-  const theme = mode === 'dark' ? darkTheme : lightTheme;
-
-  return (
-    <Admin
-      authProvider={authProvider}
-      layout={(props) => <Layout {...props} mode={mode} setMode={setMode} />}
-      dataProvider={userDataProvider}
-      theme={theme}
-    >
-      <CustomRoutes>
-        <Route path="/buscar-orden-lote" element={<OrdenTrabajoLoteSearch />} />
-      </CustomRoutes>
-      <Resource
-        name="users"
-        list={UserList}
-        create={UserCreate}
-        edit={UserEdit}
-        options={{ label: "Usuarios", hasDelete: true }}
-        icon={PersonIcon}
-      />
-      <Resource
-        name="clientes"
-        list={ClienteList}
-        create={ClienteCreate}
-        edit={ClienteEdit}
-        options={{ label: "Clientes", hasDelete: true }}
-        icon={GroupIcon}
-      />
-      <Resource
-        name="ordenes_trabajo"
-        list={OrdenTrabajoList}
-        create={OrdenTrabajoCreate}
-        edit={OrdenTrabajoEdit}
-        options={{ label: "Órdenes de Trabajo", hasDelete: true }}
-        icon={BuildIcon}
-      />
-      <Resource
-        name="controles_preprensa"
-        list={ControlPrePrensaList}
-        create={ControlPrePrensaCreate}
-        edit={ControlPrePrensaEdit}
-        options={{ label: "Control PrePrensa", hasDelete: true }}
-        icon={AssignmentTurnedInIcon}
-      />
-      <Resource
-        name="controles_prensa"
-        list={ControlPrensaList}
-        create={ControlPrensaCreate}
-        edit={ControlPrensaEdit}
-        options={{ label: "Control Prensa", hasDelete: true }}
-        icon={PrintIcon}
-      />
-      <Resource
-        name="controles_postprensa"
-        list={ControlPostPrensaList}
-        create={ControlPostPrensaCreate}
-        edit={ControlPostPrensaEdit}
-        options={{ label: "Control PostPrensa", hasDelete: true }}
-        icon={AssignmentIndIcon}
-      />
-      <Resource
-        name="controles_calidad"
-        list={ControlCalidadFinalList}
-        create={ControlCalidadFinalCreate}
-        edit={ControlCalidadFinalEdit}
-        options={{ label: "Control Calidad Final", hasDelete: true }}
-        icon={AssignmentTurnedInIcon}
-      />
-      <Resource
-        name="remitos"
-        list={RemitoList}
-        create={RemitoCreate}
-        edit={RemitoEdit}
-        show={RemitoShow}
-        options={{ label: "Remitos", hasDelete: true }}
-        icon={LocalShippingIcon}
-        recordRepresentation="numero_remito"
-      />
-    </Admin>
-  );
-};
+export const App = () => (
+  <Admin
+    authProvider={authProvider}
+    layout={Layout}
+    dataProvider={userDataProvider}
+    theme={lightTheme}
+    darkTheme={darkTheme}
+    defaultTheme={lightTheme}
+  >
+    <CustomRoutes>
+      <Route path="/buscar-orden-lote" element={<OrdenTrabajoLoteSearch />} />
+    </CustomRoutes>
+    <Resource
+      name="users"
+      list={UserList}
+      create={UserCreate}
+      edit={UserEdit}
+      options={{ label: "Usuarios", hasDelete: true }}
+      icon={PersonIcon}
+    />
+    <Resource
+      name="clientes"
+      list={ClienteList}
+      create={ClienteCreate}
+      edit={ClienteEdit}
+      options={{ label: "Clientes", hasDelete: true }}
+      icon={GroupIcon}
+    />
+    <Resource
+      name="ordenes_trabajo"
+      list={OrdenTrabajoList}
+      create={OrdenTrabajoCreate}
+      edit={OrdenTrabajoEdit}
+      options={{ label: "Órdenes de Trabajo", hasDelete: true }}
+      icon={BuildIcon}
+    />
+    <Resource
+      name="controles_preprensa"
+      list={ControlPrePrensaList}
+      create={ControlPrePrensaCreate}
+      edit={ControlPrePrensaEdit}
+      options={{ label: "Control PrePrensa", hasDelete: true }}
+      icon={AssignmentTurnedInIcon}
+    />
+    <Resource
+      name="controles_prensa"
+      list={ControlPrensaList}
+      create={ControlPrensaCreate}
+      edit={ControlPrensaEdit}
+      options={{ label: "Control Prensa", hasDelete: true }}
+      icon={PrintIcon}
+    />
+    <Resource
+      name="controles_postprensa"
+      list={ControlPostPrensaList}
+      create={ControlPostPrensaCreate}
+      edit={ControlPostPrensaEdit}
+      options={{ label: "Control PostPrensa", hasDelete: true }}
+      icon={AssignmentIndIcon}
+    />
+    <Resource
+      name="controles_calidad"
+      list={ControlCalidadFinalList}
+      create={ControlCalidadFinalCreate}
+      edit={ControlCalidadFinalEdit}
+      options={{ label: "Control Calidad Final", hasDelete: true }}
+      icon={AssignmentTurnedInIcon}
+    />
+    <Resource
+      name="remitos"
+      list={RemitoList}
+      create={RemitoCreate}
+      edit={RemitoEdit}
+      show={RemitoShow}
+      options={{ label: "Remitos", hasDelete: true }}
+      icon={LocalShippingIcon}
+      recordRepresentation="numero_remito"
+    />
+  </Admin>
+);
 
 export default App;

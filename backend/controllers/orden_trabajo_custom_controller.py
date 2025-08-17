@@ -23,7 +23,8 @@ async def get_orden_trabajo_by_lote(numero_lote: str, db: AsyncSession = Depends
             u.nombre AS usuario_nombre,
             ot.numero_lote AS numero_lote,
             ot.fecha_creacion AS fecha_creacion,
-            ot.estado_actual AS estado_actual,
+            ot.id_estado AS id_estado,
+            est.nombre AS estado_nombre,
             ot.soporte AS soporte,
             ot.alto_mm AS alto_mm,
             ot.ancho_mm AS ancho_mm,
@@ -150,6 +151,7 @@ async def get_orden_trabajo_by_lote(numero_lote: str, db: AsyncSession = Depends
         LEFT JOIN "SistemaImpresion" s ON ot.id_sistema = s.id_sistema_impresion
         LEFT JOIN "Etapa" e ON ot.id_etapa = e.id_etapa
         LEFT JOIN "Usuario" u ON ot.id_usuario = u.id_usuario
+        LEFT JOIN "Estado" est ON ot.id_estado = est.id_estado
         LEFT JOIN "ControlPrePrensa" cpp ON ot.id_orden_trabajo = cpp.id_orden_trabajo
         LEFT JOIN "Usuario" ucppre ON cpp.id_usuario = ucppre.id_usuario
         LEFT JOIN "ControlPrensa" cp ON ot.id_orden_trabajo = cp.id_orden_trabajo

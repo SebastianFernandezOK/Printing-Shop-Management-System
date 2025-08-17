@@ -16,6 +16,7 @@ from backend.controllers.control_calidad_controller import router as control_cal
 from backend.controllers.remito_controller import router as remito_router
 from backend.controllers.auth_controller import router as auth_router
 from backend.controllers.orden_trabajo_custom_controller import router as orden_trabajo_custom_router
+from backend.controllers.estado_controller import router as estado_router
 from backend.core.config import settings
 
 app = FastAPI()
@@ -48,6 +49,7 @@ app.include_router(control_calidad_router)
 app.include_router(remito_router)
 app.include_router(auth_router)
 app.include_router(orden_trabajo_custom_router)
+app.include_router(estado_router)
 
 # Aquí se incluirán los routers de los controladores
 

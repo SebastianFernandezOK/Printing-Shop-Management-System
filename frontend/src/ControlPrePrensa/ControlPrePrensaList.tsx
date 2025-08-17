@@ -3,7 +3,13 @@ import BooleanPrettyField from '../BooleanPrettyField';
 
 export const ControlPrePrensaList = (props: any) => (
     <List {...props} title="Control PrePrensa">
-        <Datagrid rowClick="edit">
+        <Datagrid
+            rowClick="edit"
+            sx={{
+                '& .RaDatagrid-row': { minHeight: 32, height: 32 },
+                '& .RaDatagrid-cell': { py: 0.5, px: 1, fontSize: '0.95rem', maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
+            }}
+        >
             <TextField source="id_control_preprensa" label="ID" />
             <ReferenceField source="id_orden_trabajo" reference="ordenes_trabajo" label="Orden de Trabajo">
                 <TextField source="numero_lote" />
@@ -25,7 +31,7 @@ export const ControlPrePrensaList = (props: any) => (
             <BooleanPrettyField source="eliminar_puntos_menos_5" label="Eliminar Puntos < 5" />
             <BooleanPrettyField source="trapping" label="Trapping" />
             <BooleanPrettyField source="logo_zeus" label="Logo Zeus" />
-            <TextField source="observaciones" label="Observaciones" />
+            <TextField source="observaciones" label="Observaciones" sx={{ maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} />
         </Datagrid>
     </List>
 );
