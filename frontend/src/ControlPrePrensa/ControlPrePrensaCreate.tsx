@@ -1,4 +1,4 @@
-import { Create, SimpleForm, TextInput, NumberInput, required } from 'react-admin';
+import { Create, SimpleForm, TextInput,  BooleanInput } from 'react-admin';
 import { Paper, Box, Typography, Divider, useTheme } from '@mui/material';
 
 export const ControlPrePrensaCreate = (props: any) => {
