@@ -1,6 +1,10 @@
 from pydantic import BaseModel
 from datetime import datetime
 from typing import Optional
+from backend.schemas.cliente_schema import ClienteOut
+from backend.schemas.estado_schema import EstadoRead
+from backend.schemas.archivo_schema import ArchivoRead
+from backend.schemas.sistema_schema import SistemaOut
 
 class OrdenTrabajoBase(BaseModel):
     cliente_id: int
@@ -34,6 +38,10 @@ class OrdenTrabajoOut(OrdenTrabajoBase):
     id_orden_trabajo: int
     id_etapa: Optional[int] = None
     id_estado: Optional[int] = None
+    cliente: Optional[ClienteOut] = None
+    estado: Optional[EstadoRead] = None
+    sistema: Optional[SistemaOut] = None
+    archivos: Optional[list[ArchivoRead]] = None
 
     class Config:
         from_attributes = True

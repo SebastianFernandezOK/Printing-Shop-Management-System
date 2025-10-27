@@ -6,7 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 class OrdenTrabajoService:
     @staticmethod
     async def get_all(db: AsyncSession, skip: int = 0, limit: int = 10):
-        return await OrdenTrabajoRepository.get_all(db, skip, limit)
+        ordenes, total = await OrdenTrabajoRepository.get_all(db, skip, limit)
+        return ordenes, total
 
     @staticmethod
     async def get_by_id(db: AsyncSession, id_orden_trabajo: int):

@@ -1,0 +1,168 @@
+<div class="ordenes-create-wrapper">
+  <button mat-icon-button (click)="cancelar()" class="volver-btn">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <mat-card class="create-card">
+    <h2>
+      <mat-icon>add_circle</mat-icon>
+      Nueva Orden de Trabajo
+    </h2>
+
+    <form #ordenForm="ngForm" (ngSubmit)="crearOrden()">
+      <div class="form-grid">
+        <!-- Cliente -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Cliente *</mat-label>
+          <mat-select [(ngModel)]="orden.cliente_id" name="cliente_id" required>
+            <mat-option *ngFor="let cliente of clientes" [value]="cliente.id_cliente">
+              {{ cliente.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matPrefix>person</mat-icon>
+        </mat-form-field>
+
+        <!-- Número de Lote -->
+        <mat-form-field appearance="outline">
+          <mat-label>Número de Lote</mat-label>
+          <input matInput [(ngModel)]="orden.numero_lote" name="numero_lote" />
+          <mat-icon matPrefix>confirmation_number</mat-icon>
+        </mat-form-field>
+
+        <!-- Sistema de Impresión -->
+        <mat-form-field appearance="outline">
+          <mat-label>Sistema de Impresión</mat-label>
+          <mat-select [(ngModel)]="orden.id_sistema" name="id_sistema">
+            <mat-option *ngFor="let sistema of sistemas" [value]="sistema.id_sistema_impresion">
+              {{ sistema.nombre }}
+            </mat-option>
+          </mat-select>
+          <mat-icon matPrefix>print</mat-icon>
+        </mat-form-field>
+
+        <!-- Fecha de Creación -->
+        <mat-form-field appearance="outline">
+          <mat-label>Fecha de Creación</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="orden.fecha_creacion" name="fecha_creacion" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-icon matPrefix>event</mat-icon>
+        </mat-form-field>
+
+        <!-- Soporte -->
+        <mat-form-field appearance="outline">
+          <mat-label>Soporte</mat-label>
+          <input matInput [(ngModel)]="orden.soporte" name="soporte" />
+          <mat-icon matPrefix>layers</mat-icon>
+        </mat-form-field>
+
+        <!-- Alto (mm) -->
+        <mat-form-field appearance="outline">
+          <mat-label>Alto (mm)</mat-label>
+          <input matInput type="number" [(ngModel)]="orden.alto_mm" name="alto_mm" />
+          <mat-icon matPrefix>height</mat-icon>
+        </mat-form-field>
+
+        <!-- Ancho (mm) -->
+        <mat-form-field appearance="outline">
+          <mat-label>Ancho (mm)</mat-label>
+          <input matInput type="number" [(ngModel)]="orden.ancho_mm" name="ancho_mm" />
+          <mat-icon matPrefix>straighten</mat-icon>
+        </mat-form-field>
+
+        <!-- Z -->
+        <mat-form-field appearance="outline">
+          <mat-label>Z</mat-label>
+          <input matInput type="number" [(ngModel)]="orden.z" name="z" />
+          <mat-icon matPrefix>grain</mat-icon>
+        </mat-form-field>
+
+        <!-- Desarrollo -->
+        <mat-form-field appearance="outline">
+          <mat-label>Desarrollo</mat-label>
+          <input matInput type="number" [(ngModel)]="orden.desarrollo" name="desarrollo" />
+          <mat-icon matPrefix>timeline</mat-icon>
+        </mat-form-field>
+
+        <!-- Alto Desarrollo -->
+        <mat-form-field appearance="outline">
+          <mat-label>Alto Desarrollo</mat-label>
+          <input matInput type="number" [(ngModel)]="orden.alto_desarrollo" name="alto_desarrollo" />
+          <mat-icon matPrefix>height</mat-icon>
+        </mat-form-field>
+
+        <!-- Metros -->
+        <mat-form-field appearance="outline">
+          <mat-label>Metros</mat-label>
+          <input matInput type="number" [(ngModel)]="orden.metros" name="metros" />
+          <mat-icon matPrefix>swap_vert</mat-icon>
+        </mat-form-field>
+
+        <!-- Demasía -->
+        <mat-form-field appearance="outline">
+          <mat-label>Demasía</mat-label>
+          <input matInput type="number" [(ngModel)]="orden.demasia" name="demasia" />
+          <mat-icon matPrefix>add</mat-icon>
+        </mat-form-field>
+
+        <!-- Cantidad de Rollos -->
+        <mat-form-field appearance="outline">
+          <mat-label>Cantidad de Rollos</mat-label>
+          <input matInput type="number" [(ngModel)]="orden.cantidad_rollos" name="cantidad_rollos" />
+          <mat-icon matPrefix>view_module</mat-icon>
+        </mat-form-field>
+
+        <!-- Banda -->
+        <mat-form-field appearance="outline">
+          <mat-label>Banda</mat-label>
+          <input matInput type="number" [(ngModel)]="orden.banda" name="banda" />
+          <mat-icon matPrefix>line_weight</mat-icon>
+        </mat-form-field>
+
+        <!-- Lado -->
+        <mat-form-field appearance="outline">
+          <mat-label>Lado</mat-label>
+          <input matInput [(ngModel)]="orden.lado" name="lado" />
+          <mat-icon matPrefix>compare_arrows</mat-icon>
+        </mat-form-field>
+
+        <!-- Sentido Bobina -->
+        <mat-form-field appearance="outline">
+          <mat-label>Sentido Bobina</mat-label>
+          <input matInput type="number" [(ngModel)]="orden.sentido_bobina" name="sentido_bobina" />
+          <mat-icon matPrefix>sync_alt</mat-icon>
+        </mat-form-field>
+
+        <!-- Cantidad de Etiquetas -->
+        <mat-form-field appearance="outline">
+          <mat-label>Cantidad de Etiquetas</mat-label>
+          <input matInput type="number" [(ngModel)]="orden.cantidad_etiquetas" name="cantidad_etiquetas" />
+          <mat-icon matPrefix>label</mat-icon>
+        </mat-form-field>
+
+        <!-- Observaciones -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Observaciones</mat-label>
+          <textarea matInput [(ngModel)]="orden.observaciones" name="observaciones" rows="3"></textarea>
+          <mat-icon matPrefix>notes</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="actions">
+        <button mat-raised-button type="button" (click)="cancelar()" class="cancel-btn">
+          <mat-icon>cancel</mat-icon> Cancelar
+        </button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!ordenForm.valid || loading" class="save-btn">
+          <mat-icon>save</mat-icon> {{ loading ? 'Guardando...' : 'Crear Orden' }}
+        </button>
+      </div>
+
+      <div *ngIf="success" class="success-msg">
+        <mat-icon>check_circle</mat-icon> ¡Orden creada exitosamente!
+      </div>
+      <div *ngIf="error" class="error-msg">
+        <mat-icon>error</mat-icon> {{ error }}
+      </div>
+    </form>
+  </mat-card>
+</div>

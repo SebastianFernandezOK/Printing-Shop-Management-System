@@ -1,6 +1,9 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Text
+from sqlalchemy.orm import relationship
 from backend.core.config import Base
 from datetime import datetime
+from backend.models.archivo_model import ArchivoModel
+from backend.models.sistema_model import Sistema
 
 class OrdenTrabajo(Base):
     __tablename__ = "OrdenTrabajo"
@@ -27,3 +30,8 @@ class OrdenTrabajo(Base):
     sentido_bobina = Column(Integer)
     cantidad_etiquetas = Column(Integer)
     observaciones = Column(Text)
+
+    archivos = relationship("ArchivoModel", back_populates="orden")
+    cliente = relationship("Cliente", backref="ordenes_trabajo")
+    estado = relationship("Estado")
+    sistema = relationship("Sistema")

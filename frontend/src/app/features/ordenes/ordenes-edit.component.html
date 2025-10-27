@@ -1,0 +1,86 @@
+<div class="orden-edit-wrapper" *ngIf="!loading && ordenForm">
+  <mat-card class="orden-edit-card">
+    <h2>Editar Orden de Trabajo</h2>
+    <form [formGroup]="ordenForm" (ngSubmit)="onSubmit()" class="orden-edit-form-grid">
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Cliente</mat-label>
+          <mat-select formControlName="cliente_id">
+            <mat-option *ngFor="let cliente of clientes" [value]="cliente.id_cliente">{{ cliente.nombre }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>N° Lote</mat-label>
+          <input matInput formControlName="numero_lote" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Soporte</mat-label>
+          <input matInput formControlName="soporte" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Alto (mm)</mat-label>
+          <input matInput type="number" formControlName="alto_mm" />
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Ancho (mm)</mat-label>
+          <input matInput type="number" formControlName="ancho_mm" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Z</mat-label>
+          <input matInput type="number" formControlName="z" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Desarrollo</mat-label>
+          <input matInput type="number" formControlName="desarrollo" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Alto Desarrollo</mat-label>
+          <input matInput type="number" formControlName="alto_desarrollo" />
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Metros</mat-label>
+          <input matInput type="number" formControlName="metros" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Demasía</mat-label>
+          <input matInput type="number" formControlName="demasia" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Cantidad de Rollos</mat-label>
+          <input matInput type="number" formControlName="cantidad_rollos" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Banda</mat-label>
+          <input matInput type="number" formControlName="banda" />
+        </mat-form-field>
+      </div>
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Lado</mat-label>
+          <input matInput formControlName="lado" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Sentido Bobina</mat-label>
+          <input matInput type="number" formControlName="sentido_bobina" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Cantidad Etiquetas</mat-label>
+          <input matInput type="number" formControlName="cantidad_etiquetas" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Observaciones</mat-label>
+          <textarea matInput formControlName="observaciones"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit">Guardar</button>
+        <button mat-button type="button" (click)="router.navigate(['/ordenes'])">Cancelar</button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+<div *ngIf="loading" class="loading">Cargando datos...</div>

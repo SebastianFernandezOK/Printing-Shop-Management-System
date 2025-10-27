@@ -1,0 +1,49 @@
+<div class="orden-detail-wrapper" *ngIf="!loading && orden">
+  <button mat-stroked-button color="primary" class="btn-volver" (click)="router.navigate(['/ordenes'])">
+    🡸 Volver
+  </button>
+  <mat-card class="orden-detail-card premium">
+    <div class="orden-detail-header">
+      📄 <!-- Documento/Orden -->
+      <div>
+        <h2>Orden #{{ orden.id_orden_trabajo }}</h2>
+        <span class="orden-lote">Lote: {{ orden.numero_lote }}</span>
+      </div>
+      <span class="orden-estado" [ngClass]="orden.estado?.nombre?.toLowerCase()">{{ orden.estado?.nombre || orden.estado_nombre || orden.id_estado }}</span>
+    </div>
+    <div class="orden-detail-body">
+      <div class="orden-detail-grid">
+        <div class="detail-row">
+          <div class="detail-item">👤 <strong>Cliente:</strong> {{ orden.cliente?.nombre || orden.cliente_nombre }}</div>
+          <div class="detail-item">🏷️ <strong>N° Lote:</strong> {{ orden.numero_lote }}</div>
+          <div class="detail-item">📦 <strong>Soporte:</strong> {{ orden.soporte }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-item">📏 <strong>Alto (mm):</strong> {{ orden.alto_mm }}</div>
+          <div class="detail-item">📏 <strong>Ancho (mm):</strong> {{ orden.ancho_mm }}</div>
+          <div class="detail-item">🔢 <strong>Z:</strong> {{ orden.z }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-item">🛠️ <strong>Desarrollo:</strong> {{ orden.desarrollo }}</div>
+          <div class="detail-item">📏 <strong>Alto Desarrollo:</strong> {{ orden.alto_desarrollo }}</div>
+          <div class="detail-item">🛣️ <strong>Metros:</strong> {{ orden.metros }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-item">➕ <strong>Demasía:</strong> {{ orden.demasia }}</div>
+          <div class="detail-item">🧻 <strong>Cantidad de Rollos:</strong> {{ orden.cantidad_rollos }}</div>
+          <div class="detail-item">🎞️ <strong>Banda:</strong> {{ orden.banda }}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-item">↔️ <strong>Lado:</strong> {{ orden.lado }}</div>
+          <div class="detail-item">🔄 <strong>Sentido Bobina:</strong> {{ orden.sentido_bobina }}</div>
+          <div class="detail-item">🏷️ <strong>Cantidad Etiquetas:</strong> {{ orden.cantidad_etiquetas }}</div>
+        </div>
+        <div class="detail-row full-width">
+          <div class="detail-item">📝 <strong>Observaciones:</strong> {{ orden.observaciones }}</div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>
+<div *ngIf="loading" class="loading">Cargando detalle...</div>
+<div *ngIf="!loading && !orden" class="empty">No se encontró la orden.</div>

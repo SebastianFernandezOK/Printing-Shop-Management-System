@@ -50,3 +50,9 @@ async def delete_user(user_id: int, db: AsyncSession = Depends(get_db)):
     if not deleted:
         raise HTTPException(status_code=404, detail="User not found")
     return None
+
+@router.get("/usuarios", response_model=List[UsuarioRead])
+async def get_usuarios(db: AsyncSession = Depends(get_db)):
+    service = UserService(db)
+    users, _ = await service.list_users(limit=1000, offset=0)
+    return [UsuarioRead.model_validate(user, from_attributes=True) for user in users]

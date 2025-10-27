@@ -1,0 +1,68 @@
+<button mat-icon-button (click)="volverALista()" class="volver-btn">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+<div class="preprensa-detalle">
+  <mat-card class="preprensa-detalle-card premium-layout">
+    <mat-tab-group>
+      <mat-tab label="Imagen">
+        <div class="preprensa-img">
+          <img 
+            [src]="orden?.imagenUrl || 'assets/placeholder.png'" 
+            (click)="openFullscreen()" 
+            style="cursor: pointer;"
+            title="Click para ver en pantalla completa"
+          />
+        </div>
+        <div class="upload-section">
+          <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+          <button mat-stroked-button color="primary" (click)="seleccionarArchivo()" style="margin-right:8px;">
+            <mat-icon>upload</mat-icon> Seleccionar Imagen
+          </button>
+          <button mat-raised-button color="primary" (click)="uploadOrReplaceImage()" [disabled]="!selectedFile">
+            <mat-icon>cloud_upload</mat-icon> {{ orden?.archivos && orden.archivos.length > 0 ? 'Reemplazar Imagen' : 'Subir Imagen' }}
+          </button>
+          <button *ngIf="orden?.archivos && orden.archivos.length > 0" mat-stroked-button color="warn" (click)="deleteImage()" style="margin-left:8px;">
+            <mat-icon>delete</mat-icon> Eliminar Imagen
+          </button>
+          <div *ngIf="uploadError" class="error">{{ uploadError }}</div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Información">
+        <div class="preprensa-detalle-info">
+          <div><mat-icon class="info-ico">person</mat-icon><strong>Cliente:</strong> {{ orden?.cliente?.nombre || orden?.cliente_nombre }}</div>
+          <div><mat-icon class="info-ico">work</mat-icon><strong>Trabajo:</strong> {{ orden?.trabajo || orden?.tipo_trabajo || orden?.nombre_trabajo }}</div>
+          <div><mat-icon class="info-ico">layers</mat-icon><strong>Soporte:</strong> {{ orden?.soporte }}</div>
+          <div><mat-icon class="info-ico">straighten</mat-icon><strong>Tamaño:</strong> {{ orden?.ancho_mm || orden?.ancho }} x {{ orden?.alto_mm || orden?.alto }} mm</div>
+          <div><mat-icon class="info-ico">timeline</mat-icon><strong>Desarrollo:</strong> {{ orden?.desarrollo }}</div>
+          <div><mat-icon class="info-ico">height</mat-icon><strong>Alto desarrollo:</strong> {{ orden?.alto_desarrollo }}</div>
+          <div><mat-icon class="info-ico">swap_vert</mat-icon><strong>Metros:</strong> {{ orden?.metros }}</div>
+          <div><mat-icon class="info-ico">add</mat-icon><strong>Demasía:</strong> {{ orden?.demasia }}</div>
+          <div><mat-icon class="info-ico">view_module</mat-icon><strong>Cantidad de rollos:</strong> {{ orden?.cantidad_rollos }}</div>
+          <div><mat-icon class="info-ico">line_weight</mat-icon><strong>Banda:</strong> {{ orden?.banda }}</div>
+          <div><mat-icon class="info-ico">sync_alt</mat-icon><strong>Sentido de bobina:</strong> {{ orden?.sentido_bobina }}</div>
+          <div><mat-icon class="info-ico">confirmation_number</mat-icon><strong>Cantidad:</strong> {{ orden?.cantidad_etiquetas }}</div>
+          <div><mat-icon class="info-ico">event</mat-icon><strong>Fecha:</strong> {{ orden?.fecha_creacion | date:'short' }}</div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Observaciones">
+        <mat-form-field appearance="outline" class="obs-field">
+          <mat-label>Observaciones</mat-label>
+          <textarea matInput [(ngModel)]="orden.observaciones" name="observaciones" rows="3" placeholder="Observaciones"></textarea>
+        </mat-form-field>
+        <button mat-flat-button color="primary" class="guardar-btn" (click)="guardarObservaciones()" [disabled]="!orden?.observaciones">
+          <mat-icon>save</mat-icon> Guardar
+        </button>
+        <div *ngIf="observacionesGuardadas" class="success-msg fade-in">Observaciones guardadas</div>
+        <div *ngIf="observacionesError" class="error">{{ observacionesError }}</div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>
+
+<!-- Modal de pantalla completa -->
+<div *ngIf="isFullscreen" class="fullscreen-modal" (click)="closeFullscreen()">
+  <div class="fullscreen-close-btn">
+    <mat-icon>close</mat-icon>
+  </div>
+  <img [src]="orden?.imagenUrl || 'assets/placeholder.png'" class="fullscreen-image" (click)="$event.stopPropagation()" />
+</div>

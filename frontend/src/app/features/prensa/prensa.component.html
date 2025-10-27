@@ -1,0 +1,19 @@
+<div class="prensa-list" *ngIf="!selectedOrden">
+  <mat-card *ngFor="let orden of ordenes$ | async" class="prensa-card" (click)="selectOrden(orden)">
+    <div class="prensa-card-img">
+      <img [src]="orden.archivos && orden.archivos.length > 0 ? 'http://localhost:9000/' + orden.archivos[0].ruta : 'assets/placeholder.png'" />
+    </div>
+    <div class="prensa-card-info">
+      <div class="prensa-card-cliente">{{ orden.cliente?.nombre || orden.cliente_nombre }}</div>
+      <div class="prensa-card-lote">Lote: <span>{{ orden.numero_lote }}</span></div>
+    </div>
+    <div *ngIf="orden.estado?.nombre" class="prensa-card-estado">{{ orden.estado.nombre }}</div>
+  </mat-card>
+</div>
+
+<ng-container *ngIf="selectedOrden">
+  <app-prensa-detalle
+    [orden]="selectedOrden"
+    (close)="closeDetalle()">
+  </app-prensa-detalle>
+</ng-container>

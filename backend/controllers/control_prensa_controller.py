@@ -14,12 +14,20 @@ from backend.services.control_prensa_service import (
     actualizar_control_prensa,
     eliminar_control_prensa,
 )
+from backend.repositories.control_prensa_repository import (
+    get_control_prensas as repo_get_control_prensas,
+)
 
 router = APIRouter(prefix="/controles_prensa", tags=["controles_prensa"])
 
 @router.get("/", response_model=List[ControlPrensaOut])
-async def get_control_prensas(session: AsyncSession = Depends(get_db)):
-    return await listar_control_prensas(session)
+async def get_control_prensas(id_orden_trabajo: int = None, session: AsyncSession = Depends(get_db)):
+    if id_orden_trabajo is not None:
+        objs = await repo_get_control_prensas(session)
+        filtered = [obj for obj in objs if obj.id_orden_trabajo == id_orden_trabajo]
+        return filtered
+    # Si no se pasa el parámetro, devolver todos
+    return await repo_get_control_prensas(session)
 
 @router.get("/{id_control_prensa}", response_model=ControlPrensaOut)
 async def get_control_prensa(id_control_prensa: int, session: AsyncSession = Depends(get_db)):

@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 from backend.core.config import Base
 from backend.models.rol_model import Rol
 import datetime
+
 
 
 
@@ -16,5 +18,9 @@ class Usuario(Base):
     is_activo = Column(Boolean, default=True)
     creado_en = Column(DateTime, default=datetime.datetime.utcnow)
 
-    def __repr__(self):
-        return f"<Usuario(nombre={self.nombre}, email={self.email})>"
+
+
+Usuario.archivos = relationship("ArchivoModel", back_populates="usuario")
+
+def __repr__(self):
+    return f"<Usuario(nombre={self.nombre}, email={self.email})>"

@@ -1,0 +1,47 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer mode="side" [(opened)]="sidebarOpened" class="sidenav">
+    <div class="sidenav-header">
+      <img src="assets/logo.png" alt="Logo" class="sidebar-logo" />
+    </div>
+    <mat-nav-list>
+      
+      
+      <a mat-list-item routerLink="/ordenes" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon matListItemIcon>assignment</mat-icon>
+        <span matListItemTitle>Órdenes</span>
+      </a>
+      <a mat-list-item routerLink="/preprensa" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon matListItemIcon>layers</mat-icon>
+        <span matListItemTitle>PrePrensa</span>
+      </a>
+      <a mat-list-item routerLink="/planificacion" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon matListItemIcon>event_note</mat-icon>
+        <span matListItemTitle>Planificación</span>
+      </a>
+      
+      <a mat-list-item routerLink="/prensa" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <mat-icon matListItemIcon>print</mat-icon>
+        <span matListItemTitle>Prensa</span>
+      </a>
+      
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="main-toolbar">
+      <button mat-icon-button (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="toolbar-title">Sistema de Gestión de Imprenta</span>
+      <span class="spacer"></span>
+      <button mat-icon-button>
+        <mat-icon>notifications</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,94 @@
+<div class="prensa-detalle">
+  <button mat-icon-button (click)="onClose()" class="prensa-detalle-volver">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <mat-card class="prensa-detalle-card premium-layout">
+    <mat-tab-group [(selectedIndex)]="selectedTab" (selectedIndexChange)="onTabChange($event)">
+      <mat-tab label="Imagen">
+        <div class="prensa-detalle-img">
+          <img [src]="orden?.imagenUrl || 'assets/placeholder.png'" />
+        </div>
+      </mat-tab>
+      <mat-tab label="Información">
+        <div class="prensa-detalle-info">
+          <div><strong>Cliente:</strong> {{ orden?.cliente?.nombre || orden?.cliente_nombre }}</div>
+          <div><strong>Trabajo:</strong> {{ orden?.trabajo || orden?.tipo_trabajo || orden?.nombre_trabajo }}</div>
+          <div><strong>Soporte:</strong> {{ orden?.soporte }}</div>
+          <div><strong>Tamaño:</strong> {{ orden?.ancho_mm || orden?.ancho }} x {{ orden?.alto_mm || orden?.alto }} mm</div>
+          <div><strong>Desarrollo:</strong> {{ orden?.desarrollo }}</div>
+          <div><strong>Alto desarrollo:</strong> {{ orden?.alto_desarrollo }}</div>
+          <div><strong>Metros:</strong> {{ orden?.metros }}</div>
+          <div><strong>Demasía:</strong> {{ orden?.demasia }}</div>
+          <div><strong>Cantidad de rollos:</strong> {{ orden?.cantidad_rollos }}</div>
+          <div><strong>Banda:</strong> {{ orden?.banda }}</div>
+          <div><strong>Tintas:</strong> {{ orden?.tintas }}</div>
+          <div><strong>Acabados:</strong> {{ orden?.acabados }}</div>
+          <div><strong>Troquelado:</strong> {{ orden?.troquelado }}</div>
+          <div><strong>Sentido de bobina:</strong> {{ orden?.sentido_bobina || orden?.sentidoBobina }}</div>
+          <div><strong>Cantidad:</strong> {{ orden?.cantidad_etiquetas || orden?.cantidad }}</div>
+          <div><strong>Fecha:</strong> {{ orden?.fecha_creacion || orden?.fecha }}</div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Control de Prensa">
+        <div class="prensa-control-content">
+          <div class="prensa-control">
+            <form *ngIf="!orden?.controlPrensa" (ngSubmit)="guardarControlPrensa()">
+              <!-- Campos de creación -->
+              <mat-form-field appearance="fill">
+                <mat-label>Metros registro</mat-label>
+                <input matInput type="number" [(ngModel)]="controlPrensaEdit.metros_registro" name="metros_registro" step="0.01" required>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Metros impresos</mat-label>
+                <input matInput type="number" [(ngModel)]="controlPrensaEdit.metros_impresos" name="metros_impresos" step="0.01" required>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Usuario</mat-label>
+                <mat-select [(ngModel)]="controlPrensaEdit.id_usuario" name="id_usuario" required>
+                  <mat-option *ngFor="let usuario of usuarios" [value]="usuario.id_usuario">
+                    <span class="usuario-badge">
+                      <i class="fa fa-user"></i>
+                    </span>
+                    {{ usuario.nombre }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Observaciones</mat-label>
+                <textarea matInput [(ngModel)]="controlPrensaEdit.observaciones" name="observaciones" rows="3" placeholder="Observaciones"></textarea>
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit">Guardar</button>
+            </form>
+            <form *ngIf="orden?.controlPrensa" (ngSubmit)="editarControlPrensa()">
+              <!-- Campos de edición -->
+              <mat-form-field appearance="fill">
+                <mat-label>Metros registro</mat-label>
+                <input matInput type="number" [(ngModel)]="controlPrensaEdit.metros_registro" name="metros_registro" step="0.01" required>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Metros impresos</mat-label>
+                <input matInput type="number" [(ngModel)]="controlPrensaEdit.metros_impresos" name="metros_impresos" step="0.01" required>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Usuario</mat-label>
+                <mat-select [(ngModel)]="controlPrensaEdit.id_usuario" name="id_usuario" required>
+                  <mat-option *ngFor="let usuario of usuarios" [value]="usuario.id_usuario">
+                    <span class="usuario-badge">
+                      <i class="fa fa-user"></i>
+                    </span>
+                    {{ usuario.nombre }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Observaciones</mat-label>
+                <textarea matInput [(ngModel)]="controlPrensaEdit.observaciones" name="observaciones" rows="3" placeholder="Observaciones"></textarea>
+              </mat-form-field>
+              <button mat-raised-button color="accent" type="submit">Editar</button>
+            </form>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

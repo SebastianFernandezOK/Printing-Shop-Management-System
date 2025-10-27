@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
+import os
 
 class Settings(BaseSettings):
     DB_HOST: str 
@@ -9,6 +10,7 @@ class Settings(BaseSettings):
     DB_PASSWORD: str 
     DB_NAME: str 
     DATABASE_URL: str = ""
+    UPLOAD_DIR: str = ""
 
     class Config:
         env_file = ".env"
@@ -36,3 +38,6 @@ Base = declarative_base()
 async def get_db():
     async with AsyncSessionLocal() as session:
         yield session
+
+# Ejemplo de cómo leer la variable UPLOAD_DIR del .env fuera de la clase Settings
+UPLOAD_DIR = settings.UPLOAD_DIR or os.path.join(os.getcwd(), "uploads")

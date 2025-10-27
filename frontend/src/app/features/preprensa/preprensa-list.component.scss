@@ -1,0 +1,70 @@
+.preprensa-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 24px;
+  justify-content: flex-start;
+}
+.preprensa-card {
+  width: 260px;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  box-shadow: 0 2px 12px rgba(33,150,243,0.07);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.preprensa-card:hover {
+  box-shadow: 0 8px 32px rgba(33,150,243,0.18);
+  transform: translateY(-4px) scale(1.03);
+}
+.preprensa-card-img {
+  width: 100%;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7fafd;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  overflow: hidden;
+}
+.preprensa-card-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.preprensa-card-info {
+  padding: 12px 16px 8px 16px;
+  font-size: 1.08rem;
+  color: #333;
+}
+.preprensa-card-cliente {
+  font-weight: 600;
+  color: #1976d2;
+  margin-bottom: 4px;
+}
+.preprensa-card-lote {
+  font-size: 0.98em;
+  color: #666;
+}
+.preprensa-card-estado {
+  background: #e3f2fd;
+  color: #1976d2;
+  font-size: 0.95em;
+  padding: 4px 12px;
+  border-radius: 0 0 12px 12px;
+  margin: 0 12px 12px 12px;
+  text-align: center;
+}
+.secondary { color: #666; font-size: 0.95em; }
+mat-list-item { border-bottom: 1px solid #eee; }
+mat-list-item:hover { background: #f7fafd; }
+.preprensa-cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: flex-start;
+  width: 100%;
+}

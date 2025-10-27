@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from backend.core.config import Base
 
 class ControlPrensa(Base):
@@ -6,35 +6,7 @@ class ControlPrensa(Base):
 
     id_control_prensa = Column(Integer, primary_key=True, index=True)
     id_orden_trabajo = Column(Integer, ForeignKey("OrdenTrabajo.id_orden_trabajo"), nullable=False)
-    id_maquina = Column(Integer, ForeignKey("Maquina.id_maquina"), nullable=True)
     id_usuario = Column(Integer, ForeignKey("Usuario.id_usuario"), nullable=False)
-    polimeros = Column(Boolean, nullable=True)
-    textos = Column(Boolean, nullable=True)
-    color = Column(Boolean, nullable=True)
-    registro = Column(Boolean, nullable=True)
-    resistencia_frote = Column(Boolean, nullable=True)
-    medidas = Column(Boolean, nullable=True)
-    liner = Column(Boolean, nullable=True)
-    metros_impresos = Column(Boolean, nullable=True)
-    cantidad_tinta = Column(Boolean, nullable=True)
-    cantidad_barniz = Column(Boolean, nullable=True)
-    # Bobinas
-    bobina_1 = Column(Boolean, nullable=True)
-    bobina_2 = Column(Boolean, nullable=True)
-    bobina_3 = Column(Boolean, nullable=True)
-    bobina_4 = Column(Boolean, nullable=True)
-    bobina_5 = Column(Boolean, nullable=True)
-    bobina_6 = Column(Boolean, nullable=True)
-    bobina_7 = Column(Boolean, nullable=True)
-    bobina_8 = Column(Boolean, nullable=True)
-    bobina_9 = Column(Boolean, nullable=True)
-    bobina_10 = Column(Boolean, nullable=True)
-    bobina_11 = Column(Boolean, nullable=True)
-    bobina_12 = Column(Boolean, nullable=True)
-    bobina_13 = Column(Boolean, nullable=True)
-    bobina_14 = Column(Boolean, nullable=True)
-    bobina_15 = Column(Boolean, nullable=True)
-    bobina_16 = Column(Boolean, nullable=True)
-    bobina_17 = Column(Boolean, nullable=True)
-    bobina_18 = Column(Boolean, nullable=True)
+    metros_registro = Column(Float, nullable=True)
+    metros_impresos = Column(Float, nullable=True)
     observaciones = Column(String, nullable=True)

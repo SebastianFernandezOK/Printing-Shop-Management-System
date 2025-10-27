@@ -1,0 +1,48 @@
+<div class="ordenes-wrapper">
+  <div class="header">
+    <h2>Órdenes de Trabajo</h2>
+    <button mat-raised-button color="primary" (click)="goToCreate()" class="create-btn">
+      <mat-icon>add</mat-icon> Nueva Orden
+    </button>
+  </div>
+  <div *ngIf="loading" class="loading">Cargando...</div>
+  <table *ngIf="!loading" class="ordenes-table">
+    <thead>
+      <tr>
+        <th>N° Lote</th>
+        <th>Cliente</th>
+        <th>Sistema</th>
+        <th>Estado</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let orden of ordenes">
+        <td (click)="goToDetail(orden)" style="cursor:pointer">{{ orden.numero_lote || '-' }}</td>
+        <td (click)="goToDetail(orden)" style="cursor:pointer">{{ orden.cliente?.nombre || '-' }}</td>
+        <td (click)="goToDetail(orden)" style="cursor:pointer">{{ orden.sistema?.nombre || '-' }}</td>
+        <td (click)="goToDetail(orden)" style="cursor:pointer">{{ orden.estado?.nombre || orden.estado_nombre || orden.id_estado || '-' }}</td>
+        <td>
+          <button mat-icon-button color="primary" (click)="goToDetail(orden)"><mat-icon>visibility</mat-icon></button>
+          <button mat-icon-button color="accent" (click)="goToEdit(orden)"><mat-icon>edit</mat-icon></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="!loading && ordenes.length === 0" class="empty">No hay órdenes registradas.</div>
+  <div class="paginator-bar" *ngIf="!loading && total > 0">
+    <div class="paginator-bar-controls">
+      <mat-form-field appearance="outline" class="page-size-field">
+        <mat-label>Órdenes por página</mat-label>
+        <mat-select [(ngModel)]="pageSize" (selectionChange)="onPageSizeChange()">
+          <mat-option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span class="paginator-info">Página {{ pageIndex + 1 }} de {{ totalPages }}</span>
+    </div>
+    <div class="paginator-bar-nav">
+      <button mat-raised-button color="primary" (click)="prevPage()" [disabled]="pageIndex === 0">Anterior</button>
+      <button mat-raised-button color="primary" (click)="nextPage()" [disabled]="(pageIndex + 1) * pageSize >= total">Siguiente</button>
+    </div>
+  </div>
+</div>
