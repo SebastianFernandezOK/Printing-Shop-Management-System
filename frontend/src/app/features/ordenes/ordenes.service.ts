@@ -35,4 +35,8 @@ export class OrdenesService {
   getEstados(): Observable<any> {
     return this.http.get<any>('http://localhost:9000/estados/');
   }
+
+  deleteOrden(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}${id}`);
+  }
 }

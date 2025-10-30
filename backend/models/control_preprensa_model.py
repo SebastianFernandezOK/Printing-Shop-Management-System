@@ -4,7 +4,7 @@ from backend.core.config import Base
 class ControlPrePrensa(Base):
     __tablename__ = "ControlPrePrensa"
     id_control_preprensa = Column(Integer, primary_key=True, index=True)
-    id_orden_trabajo = Column(Integer, ForeignKey("OrdenTrabajo.id_orden_trabajo"), unique=True)
+    id_orden_trabajo = Column(Integer, ForeignKey("OrdenTrabajo.id_orden_trabajo", ondelete="CASCADE"), unique=True)
     id_usuario = Column(Integer, ForeignKey("Usuario.id_usuario"))
     tipo_curvas = Column(Boolean)
     banda_2mm_troq = Column(Boolean)

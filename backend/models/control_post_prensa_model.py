@@ -5,7 +5,7 @@ class ControlPostPrensa(Base):
     __tablename__ = "ControlPostPrensa"
 
     id_control_post_prensa = Column(Integer, primary_key=True, index=True)
-    id_orden_trabajo = Column(Integer, ForeignKey("OrdenTrabajo.id_orden_trabajo"), unique=True, nullable=False)
+    id_orden_trabajo = Column(Integer, ForeignKey("OrdenTrabajo.id_orden_trabajo", ondelete="CASCADE"), unique=True, nullable=False)
     id_maquina = Column(Integer, ForeignKey("Maquina.id_maquina"), nullable=True)
     id_usuario = Column(Integer, ForeignKey("Usuario.id_usuario"), nullable=False)
     # STAMPING

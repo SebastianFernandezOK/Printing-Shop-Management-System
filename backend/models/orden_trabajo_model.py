@@ -31,7 +31,7 @@ class OrdenTrabajo(Base):
     cantidad_etiquetas = Column(Integer)
     observaciones = Column(Text)
 
-    archivos = relationship("ArchivoModel", back_populates="orden")
+    archivos = relationship("ArchivoModel", back_populates="orden", passive_deletes=True)
     cliente = relationship("Cliente", backref="ordenes_trabajo")
     estado = relationship("Estado")
     sistema = relationship("Sistema")

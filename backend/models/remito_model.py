@@ -6,7 +6,7 @@ class Remito(Base):
 
     id_remito = Column(Integer, primary_key=True, index=True)
     numero_remito = Column(String, unique=True, nullable=False)
-    id_orden_trabajo = Column(Integer, ForeignKey("OrdenTrabajo.id_orden_trabajo"), nullable=False)
+    id_orden_trabajo = Column(Integer, ForeignKey("OrdenTrabajo.id_orden_trabajo", ondelete="CASCADE"), nullable=False)
     fecha_emision = Column(DateTime, nullable=True)
     cantidad_entregada = Column(Integer, nullable=True)
     observaciones = Column(Text, nullable=True)

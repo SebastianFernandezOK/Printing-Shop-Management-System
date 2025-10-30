@@ -1,49 +1,204 @@
 <div class="orden-detail-wrapper" *ngIf="!loading && orden">
-  <button mat-stroked-button color="primary" class="btn-volver" (click)="router.navigate(['/ordenes'])">
-    🡸 Volver
+  <button mat-icon-button (click)="router.navigate(['/ordenes'])" class="volver-btn">
+    <mat-icon>arrow_back</mat-icon>
   </button>
-  <mat-card class="orden-detail-card premium">
-    <div class="orden-detail-header">
-      📄 <!-- Documento/Orden -->
-      <div>
-        <h2>Orden #{{ orden.id_orden_trabajo }}</h2>
-        <span class="orden-lote">Lote: {{ orden.numero_lote }}</span>
+
+  <mat-card class="detail-card">
+    <h2>
+      <mat-icon>description</mat-icon>
+      Detalle de Orden de Trabajo
+    </h2>
+
+    <div class="info-header">
+      <div class="orden-number">
+        <mat-icon>tag</mat-icon>
+        <span>Orden #{{ orden.id_orden_trabajo }}</span>
       </div>
-      <span class="orden-estado" [ngClass]="orden.estado?.nombre?.toLowerCase()">{{ orden.estado?.nombre || orden.estado_nombre || orden.id_estado }}</span>
+      <span class="orden-estado" [ngClass]="orden.estado?.nombre?.toLowerCase()">
+        {{ orden.estado?.nombre || orden.estado_nombre || orden.id_estado }}
+      </span>
     </div>
-    <div class="orden-detail-body">
-      <div class="orden-detail-grid">
-        <div class="detail-row">
-          <div class="detail-item">👤 <strong>Cliente:</strong> {{ orden.cliente?.nombre || orden.cliente_nombre }}</div>
-          <div class="detail-item">🏷️ <strong>N° Lote:</strong> {{ orden.numero_lote }}</div>
-          <div class="detail-item">📦 <strong>Soporte:</strong> {{ orden.soporte }}</div>
+
+    <div class="detail-grid">
+      <!-- Cliente -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>person</mat-icon>
+          <span>Cliente</span>
         </div>
-        <div class="detail-row">
-          <div class="detail-item">📏 <strong>Alto (mm):</strong> {{ orden.alto_mm }}</div>
-          <div class="detail-item">📏 <strong>Ancho (mm):</strong> {{ orden.ancho_mm }}</div>
-          <div class="detail-item">🔢 <strong>Z:</strong> {{ orden.z }}</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-item">🛠️ <strong>Desarrollo:</strong> {{ orden.desarrollo }}</div>
-          <div class="detail-item">📏 <strong>Alto Desarrollo:</strong> {{ orden.alto_desarrollo }}</div>
-          <div class="detail-item">🛣️ <strong>Metros:</strong> {{ orden.metros }}</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-item">➕ <strong>Demasía:</strong> {{ orden.demasia }}</div>
-          <div class="detail-item">🧻 <strong>Cantidad de Rollos:</strong> {{ orden.cantidad_rollos }}</div>
-          <div class="detail-item">🎞️ <strong>Banda:</strong> {{ orden.banda }}</div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-item">↔️ <strong>Lado:</strong> {{ orden.lado }}</div>
-          <div class="detail-item">🔄 <strong>Sentido Bobina:</strong> {{ orden.sentido_bobina }}</div>
-          <div class="detail-item">🏷️ <strong>Cantidad Etiquetas:</strong> {{ orden.cantidad_etiquetas }}</div>
-        </div>
-        <div class="detail-row full-width">
-          <div class="detail-item">📝 <strong>Observaciones:</strong> {{ orden.observaciones }}</div>
-        </div>
+        <div class="field-value">{{ orden.cliente?.nombre || orden.cliente_nombre || '-' }}</div>
       </div>
+
+      <!-- Número de Lote -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>confirmation_number</mat-icon>
+          <span>N° Lote</span>
+        </div>
+        <div class="field-value">{{ orden.numero_lote || '-' }}</div>
+      </div>
+
+      <!-- Sistema -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>print</mat-icon>
+          <span>Sistema de Impresión</span>
+        </div>
+        <div class="field-value">{{ orden.sistema?.nombre || '-' }}</div>
+      </div>
+
+      <!-- Fecha de Creación -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>event</mat-icon>
+          <span>Fecha de Creación</span>
+        </div>
+        <div class="field-value">{{ orden.fecha_creacion ? (orden.fecha_creacion | date:'dd/MM/yyyy') : '-' }}</div>
+      </div>
+
+      <!-- Soporte -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>layers</mat-icon>
+          <span>Soporte</span>
+        </div>
+        <div class="field-value">{{ orden.soporte || '-' }}</div>
+      </div>
+
+      <!-- Alto (mm) -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>height</mat-icon>
+          <span>Alto (mm)</span>
+        </div>
+        <div class="field-value">{{ orden.alto_mm || '-' }}</div>
+      </div>
+
+      <!-- Ancho (mm) -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>straighten</mat-icon>
+          <span>Ancho (mm)</span>
+        </div>
+        <div class="field-value">{{ orden.ancho_mm || '-' }}</div>
+      </div>
+
+      <!-- Z -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>grain</mat-icon>
+          <span>Z</span>
+        </div>
+        <div class="field-value">{{ orden.z || '-' }}</div>
+      </div>
+
+      <!-- Desarrollo -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>timeline</mat-icon>
+          <span>Desarrollo</span>
+        </div>
+        <div class="field-value">{{ orden.desarrollo || '-' }}</div>
+      </div>
+
+      <!-- Alto Desarrollo -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>height</mat-icon>
+          <span>Alto Desarrollo</span>
+        </div>
+        <div class="field-value">{{ orden.alto_desarrollo || '-' }}</div>
+      </div>
+
+      <!-- Metros -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>swap_vert</mat-icon>
+          <span>Metros</span>
+        </div>
+        <div class="field-value">{{ orden.metros || '-' }}</div>
+      </div>
+
+      <!-- Demasía -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>add</mat-icon>
+          <span>Demasía</span>
+        </div>
+        <div class="field-value">{{ orden.demasia || '-' }}</div>
+      </div>
+
+      <!-- Cantidad de Rollos -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>view_module</mat-icon>
+          <span>Cantidad de Rollos</span>
+        </div>
+        <div class="field-value">{{ orden.cantidad_rollos || '-' }}</div>
+      </div>
+
+      <!-- Banda -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>line_weight</mat-icon>
+          <span>Banda</span>
+        </div>
+        <div class="field-value">{{ orden.banda || '-' }}</div>
+      </div>
+
+      <!-- Lado -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>compare_arrows</mat-icon>
+          <span>Lado</span>
+        </div>
+        <div class="field-value">{{ orden.lado || '-' }}</div>
+      </div>
+
+      <!-- Sentido Bobina -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>sync_alt</mat-icon>
+          <span>Sentido Bobina</span>
+        </div>
+        <div class="field-value">{{ orden.sentido_bobina || '-' }}</div>
+      </div>
+
+      <!-- Cantidad de Etiquetas -->
+      <div class="detail-field">
+        <div class="field-label">
+          <mat-icon>label</mat-icon>
+          <span>Cantidad de Etiquetas</span>
+        </div>
+        <div class="field-value">{{ orden.cantidad_etiquetas || '-' }}</div>
+      </div>
+
+      <!-- Observaciones -->
+      <div class="detail-field full-width">
+        <div class="field-label">
+          <mat-icon>notes</mat-icon>
+          <span>Observaciones</span>
+        </div>
+        <div class="field-value">{{ orden.observaciones || '-' }}</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button mat-raised-button color="accent" (click)="router.navigate(['/ordenes', orden.id_orden_trabajo, 'edit'])" class="edit-btn">
+        <mat-icon>edit</mat-icon> Editar Orden
+      </button>
+      <button mat-raised-button (click)="router.navigate(['/ordenes'])" class="back-btn">
+        <mat-icon>list</mat-icon> Volver al Listado
+      </button>
     </div>
   </mat-card>
 </div>
-<div *ngIf="loading" class="loading">Cargando detalle...</div>
-<div *ngIf="!loading && !orden" class="empty">No se encontró la orden.</div>
+
+<div *ngIf="loading" class="loading">
+  <mat-icon>hourglass_empty</mat-icon> Cargando detalle...
+</div>
+
+<div *ngIf="!loading && !orden" class="empty">
+  <mat-icon>error_outline</mat-icon>
+  <p>No se encontró la orden.</p>
+</div>

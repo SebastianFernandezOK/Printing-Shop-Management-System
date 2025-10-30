@@ -10,7 +10,7 @@ class ArchivoModel(Base):
     tipo = Column(String(50), nullable=True)
     ruta = Column(String(255), nullable=False)
     fecha_subida = Column(TIMESTAMP, nullable=True)
-    orden_id = Column(Integer, ForeignKey("OrdenTrabajo.id_orden_trabajo"), nullable=True)
+    orden_id = Column(Integer, ForeignKey("OrdenTrabajo.id_orden_trabajo", ondelete="CASCADE"), nullable=True)
     tamaño = Column(Integer, nullable=True)
     descripcion = Column(String(255), nullable=True)
     usuario_id = Column(Integer, ForeignKey("Usuario.id_usuario"), nullable=True)

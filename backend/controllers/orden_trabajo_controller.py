@@ -67,5 +67,15 @@ async def delete_orden_trabajo(id_orden_trabajo: int, db: AsyncSession = Depends
     db_orden = await OrdenTrabajoService.get_by_id(db, id_orden_trabajo)
     if not db_orden:
         raise HTTPException(status_code=404, detail="Orden de trabajo not found")
-    orden = await OrdenTrabajoService.delete(db, db_orden)
-    return OrdenTrabajoOut.model_validate(orden)
+    
+    try:
+        # La eliminación en cascada se encargará de eliminar los registros relacionados
+        orden = await OrdenTrabajoService.delete(db, db_orden)
+        return OrdenTrabajoOut.model_validate(orden)
+    except Exception as e:
+        # Log del error para debugging
+        print(f"Error al eliminar orden de trabajo: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Error al eliminar la orden de trabajo"
+        )

@@ -5,7 +5,7 @@ class ControlCalidadFinal(Base):
     __tablename__ = "ControlCalidadFinal"
 
     id_control_calidad = Column(Integer, primary_key=True, index=True)
-    id_orden_trabajo = Column(Integer, ForeignKey("OrdenTrabajo.id_orden_trabajo"), nullable=False)
+    id_orden_trabajo = Column(Integer, ForeignKey("OrdenTrabajo.id_orden_trabajo", ondelete="CASCADE"), nullable=False)
     fecha_control = Column(DateTime, nullable=True)
     aprobado = Column(Boolean, nullable=True)
     cantidad_inspeccionada = Column(Integer, nullable=True)

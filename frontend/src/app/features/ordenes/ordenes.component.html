@@ -5,31 +5,94 @@
       <mat-icon>add</mat-icon> Nueva Orden
     </button>
   </div>
+  
+  <div class="search-container">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Buscar por N° Lote</mat-label>
+      <input 
+        matInput 
+        [(ngModel)]="searchText" 
+        (input)="onSearchChange()"
+        placeholder="Ej: L001">
+      <mat-icon matPrefix>search</mat-icon>
+      <button 
+        mat-icon-button 
+        matSuffix 
+        *ngIf="searchText" 
+        (click)="clearSearch()"
+        aria-label="Limpiar búsqueda">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
   <div *ngIf="loading" class="loading">Cargando...</div>
   <table *ngIf="!loading" class="ordenes-table">
     <thead>
       <tr>
-        <th>N° Lote</th>
-        <th>Cliente</th>
-        <th>Sistema</th>
-        <th>Estado</th>
-        <th></th>
+        <th>
+          <div class="sortable-header" (click)="sortBy('numero_lote')">
+            <span>N° Lote</span>
+            <mat-icon class="sort-icon" *ngIf="sortColumn === 'numero_lote'">
+              {{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+            </mat-icon>
+            <mat-icon class="sort-icon inactive" *ngIf="sortColumn !== 'numero_lote'">unfold_more</mat-icon>
+          </div>
+        </th>
+        <th>
+          <div class="sortable-header" (click)="sortBy('cliente')">
+            <span>Cliente</span>
+            <mat-icon class="sort-icon" *ngIf="sortColumn === 'cliente'">
+              {{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+            </mat-icon>
+            <mat-icon class="sort-icon inactive" *ngIf="sortColumn !== 'cliente'">unfold_more</mat-icon>
+          </div>
+        </th>
+        <th>
+          <div class="sortable-header" (click)="sortBy('sistema')">
+            <span>Sistema</span>
+            <mat-icon class="sort-icon" *ngIf="sortColumn === 'sistema'">
+              {{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+            </mat-icon>
+            <mat-icon class="sort-icon inactive" *ngIf="sortColumn !== 'sistema'">unfold_more</mat-icon>
+          </div>
+        </th>
+        <th>
+          <div class="sortable-header" (click)="sortBy('estado')">
+            <span>Estado</span>
+            <mat-icon class="sort-icon" *ngIf="sortColumn === 'estado'">
+              {{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+            </mat-icon>
+            <mat-icon class="sort-icon inactive" *ngIf="sortColumn !== 'estado'">unfold_more</mat-icon>
+          </div>
+        </th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let orden of ordenes">
+      <tr *ngFor="let orden of ordenesFiltered">
         <td (click)="goToDetail(orden)" style="cursor:pointer">{{ orden.numero_lote || '-' }}</td>
         <td (click)="goToDetail(orden)" style="cursor:pointer">{{ orden.cliente?.nombre || '-' }}</td>
         <td (click)="goToDetail(orden)" style="cursor:pointer">{{ orden.sistema?.nombre || '-' }}</td>
         <td (click)="goToDetail(orden)" style="cursor:pointer">{{ orden.estado?.nombre || orden.estado_nombre || orden.id_estado || '-' }}</td>
         <td>
-          <button mat-icon-button color="primary" (click)="goToDetail(orden)"><mat-icon>visibility</mat-icon></button>
-          <button mat-icon-button color="accent" (click)="goToEdit(orden)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button color="primary" (click)="goToDetail(orden)" title="Ver detalles">
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" (click)="goToEdit(orden)" title="Editar">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="eliminarOrden(orden, $event)" title="Eliminar">
+            <mat-icon>delete</mat-icon>
+          </button>
         </td>
       </tr>
     </tbody>
   </table>
   <div *ngIf="!loading && ordenes.length === 0" class="empty">No hay órdenes registradas.</div>
+  <div *ngIf="!loading && ordenes.length > 0 && ordenesFiltered.length === 0" class="empty">
+    No se encontraron órdenes con el número de lote "{{ searchText }}"
+  </div>
   <div class="paginator-bar" *ngIf="!loading && total > 0">
     <div class="paginator-bar-controls">
       <mat-form-field appearance="outline" class="page-size-field">
