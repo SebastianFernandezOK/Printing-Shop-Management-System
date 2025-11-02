@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class OrdenesService {
-  private apiUrl = 'http://localhost:9000/ordenes_trabajo/';
+  private apiUrl = `${environment.apiUrl}/ordenes_trabajo/`;
 
   constructor(private http: HttpClient) {}
 
@@ -25,15 +26,15 @@ export class OrdenesService {
   }
 
   getClientes(offset = 0, limit = 100): Observable<any> {
-    return this.http.get<any>('http://localhost:9000/clientes/?offset=' + offset + '&limit=' + limit);
+    return this.http.get<any>(`${environment.apiUrl}/clientes/?offset=${offset}&limit=${limit}`);
   }
 
   getSistemas(): Observable<any> {
-    return this.http.get<any>('http://localhost:9000/sistemas/');
+    return this.http.get<any>(`${environment.apiUrl}/sistemas/`);
   }
 
   getEstados(): Observable<any> {
-    return this.http.get<any>('http://localhost:9000/estados/');
+    return this.http.get<any>(`${environment.apiUrl}/estados/`);
   }
 
   deleteOrden(id: string): Observable<any> {

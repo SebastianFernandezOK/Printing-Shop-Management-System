@@ -5,6 +5,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-preprensa-list',
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
 export class PreprensaListComponent implements OnInit {
   ordenes: any[] = [];
   loading = true;
+  apiUrl = environment.apiUrl;
 
   constructor(private ordenesService: OrdenesService, private router: Router) {}
 

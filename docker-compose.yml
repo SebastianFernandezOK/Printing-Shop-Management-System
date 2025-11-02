@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend           # 👈 construí desde la carpeta backend
+      dockerfile: Dockerfile       # 👈 o el nombre que le pongas dentro de backend
+    network_mode: host
+    env_file:
+      - .env
+    command: uvicorn main:app --host 0.0.0.0 --port 9000
+    volumes:
+      - ./backend/uploads:/app/uploads
+    restart: unless-stopped
+
+  

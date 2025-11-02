@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-prensa-detalle',
@@ -37,7 +38,7 @@ export class PrensaDetalleComponent implements OnInit {
 
   ngOnInit() {
     // Cargar usuarios para el select
-    this.http.get<any>('http://localhost:9000/users/').subscribe({
+    this.http.get<any>(`${environment.apiUrl}/users/`).subscribe({
       next: (res) => {
         this.usuarios = Array.isArray(res) ? res : res.data;
       }
@@ -45,7 +46,7 @@ export class PrensaDetalleComponent implements OnInit {
     // Inicializar objeto editable con los datos actuales
     if (this.orden?.id_orden_trabajo) {
       // Buscar el registro de controlPrensa relacionado a la orden actual
-      this.http.get<any>(`http://localhost:9000/controles_prensa/?id_orden_trabajo=${this.orden.id_orden_trabajo}`).subscribe({
+      this.http.get<any>(`${environment.apiUrl}/controles_prensa/?id_orden_trabajo=${this.orden.id_orden_trabajo}`).subscribe({
         next: (res) => {
           console.log('ControlPrensa recibido:', res); // DEBUG
           if (res && res.length > 0) {
@@ -93,7 +94,7 @@ export class PrensaDetalleComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
     formData.append('orden_id', this.orden.id_orden_trabajo);
-    this.http.post<any>('http://localhost:9000/archivos/upload', formData).subscribe({
+    this.http.post<any>(`${environment.apiUrl}/archivos/upload`, formData).subscribe({
       next: (res: any) => {
         this.uploading = false;
         this.selectedFile = null;
@@ -102,7 +103,7 @@ export class PrensaDetalleComponent implements OnInit {
           if (res.ruta.startsWith('http')) {
             this.orden.imagenUrl = res.ruta;
           } else {
-            this.orden.imagenUrl = `http://localhost:9000/${res.ruta.replace(/^\/+/, '')}`;
+            this.orden.imagenUrl = `${environment.apiUrl}/${res.ruta.replace(/^\/+/, '')}`;
           }
         }
       },
@@ -122,11 +123,11 @@ export class PrensaDetalleComponent implements OnInit {
     if (this.orden.archivos && this.orden.archivos.length > 0) {
       // Reemplazar imagen existente
       const idArchivo = this.orden.archivos[0].id_archivo;
-      await this.http.put<any>(`http://localhost:9000/archivos/replace/${idArchivo}`, formData).subscribe({
+      await this.http.put<any>(`${environment.apiUrl}/archivos/replace/${idArchivo}`, formData).subscribe({
         next: (res: any) => {
           this.uploading = false;
           this.selectedFile = null;
-          this.orden.imagenUrl = `http://localhost:9000/${res.ruta}`;
+          this.orden.imagenUrl = `${environment.apiUrl}/${res.ruta}`;
           this.orden.archivos[0] = res;
         },
         error: (err) => {
@@ -137,11 +138,11 @@ export class PrensaDetalleComponent implements OnInit {
     } else {
       // Subir nueva imagen
       formData.append('orden_id', this.orden.id_orden_trabajo);
-      await this.http.post<any>('http://localhost:9000/archivos/upload', formData).subscribe({
+      await this.http.post<any>(`${environment.apiUrl}/archivos/upload`, formData).subscribe({
         next: (res: any) => {
           this.uploading = false;
           this.selectedFile = null;
-          this.orden.imagenUrl = `http://localhost:9000/${res.ruta}`;
+          this.orden.imagenUrl = `${environment.apiUrl}/${res.ruta}`;
           this.orden.archivos = [res];
         },
         error: (err) => {
@@ -155,7 +156,7 @@ export class PrensaDetalleComponent implements OnInit {
   async deleteImage() {
     if (!this.orden?.archivos || this.orden.archivos.length === 0) return;
     const idArchivo = this.orden.archivos[0].id_archivo;
-    await this.http.delete<any>(`http://localhost:9000/archivos/${idArchivo}`).subscribe({
+    await this.http.delete<any>(`${environment.apiUrl}/archivos/${idArchivo}`).subscribe({
       next: () => {
         this.orden.imagenUrl = null;
         this.orden.archivos = [];
@@ -178,7 +179,7 @@ export class PrensaDetalleComponent implements OnInit {
     const idControlPrensa = this.orden?.controlPrensa?.id_control_prensa;
     if (idControlPrensa) {
       // Modificar registro existente
-      this.http.put<any>(`http://localhost:9000/controles_prensa/${idControlPrensa}`, payload).subscribe({
+      this.http.put<any>(`${environment.apiUrl}/controles_prensa/${idControlPrensa}`, payload).subscribe({
         next: (res) => {
           this.orden.controlPrensa = res;
         }
@@ -189,7 +190,7 @@ export class PrensaDetalleComponent implements OnInit {
       return;
     } else {
       // Crear nuevo registro solo si no existe ninguno
-      this.http.post<any>(`http://localhost:9000/controles_prensa/`, payload).subscribe({
+      this.http.post<any>(`${environment.apiUrl}/controles_prensa/`, payload).subscribe({
         next: (res) => {
           this.orden.controlPrensa = res;
         }
@@ -207,7 +208,7 @@ export class PrensaDetalleComponent implements OnInit {
       id_orden_trabajo: this.orden.id_orden_trabajo
     };
     const idControlPrensa = this.orden.controlPrensa.id_control_prensa;
-    this.http.put<any>(`http://localhost:9000/controles_prensa/${idControlPrensa}`, payload).subscribe({
+    this.http.put<any>(`${environment.apiUrl}/controles_prensa/${idControlPrensa}`, payload).subscribe({
       next: (res) => {
         this.orden.controlPrensa = res;
       }

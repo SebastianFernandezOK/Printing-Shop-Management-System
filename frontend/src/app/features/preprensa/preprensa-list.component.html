@@ -4,7 +4,7 @@
     <div class="preprensa-cards-row">
       <mat-card *ngFor="let orden of ordenes" class="preprensa-card" (click)="irADetalle(orden)">
         <div class="preprensa-card-img">
-          <img [src]="orden.archivos && orden.archivos.length > 0 ? 'http://localhost:9000/' + orden.archivos[0].ruta : 'assets/placeholder.png'" />
+          <img [src]="orden.archivos && orden.archivos.length > 0 ? apiUrl + '/' + orden.archivos[0].ruta : 'assets/placeholder.png'" />
         </div>
         <div class="preprensa-card-info">
           <div class="preprensa-card-cliente">{{ orden.cliente?.nombre || orden.cliente_nombre }}</div>

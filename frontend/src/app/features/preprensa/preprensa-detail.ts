@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-preprensa-detail',
@@ -44,7 +45,7 @@ export class PreprensaDetailComponent implements OnInit {
           this.orden = res;
           // Si hay archivos, setea imagenUrl para mostrar la foto
           if (this.orden.archivos && this.orden.archivos.length > 0 && this.orden.archivos[0].ruta) {
-            this.orden.imagenUrl = `http://localhost:9000/${this.orden.archivos[0].ruta}`;
+            this.orden.imagenUrl = `${environment.apiUrl}/${this.orden.archivos[0].ruta}`;
           }
         }
       });
@@ -68,11 +69,11 @@ export class PreprensaDetailComponent implements OnInit {
     if (this.orden.archivos && this.orden.archivos.length > 0) {
       // Reemplazar imagen existente
       const idArchivo = this.orden.archivos[0].id_archivo;
-      await this.http.put<any>(`http://localhost:9000/archivos/replace/${idArchivo}`, formData).subscribe({
+      await this.http.put<any>(`${environment.apiUrl}/archivos/replace/${idArchivo}`, formData).subscribe({
         next: (res: any) => {
           this.uploading = false;
           this.selectedFile = null;
-          this.orden.imagenUrl = `http://localhost:9000/${res.ruta}`;
+          this.orden.imagenUrl = `${environment.apiUrl}/${res.ruta}`;
           this.orden.archivos[0] = res;
         },
         error: (err) => {
@@ -83,11 +84,11 @@ export class PreprensaDetailComponent implements OnInit {
     } else {
       // Subir nueva imagen
       formData.append('orden_id', this.orden.id_orden_trabajo);
-      await this.http.post<any>('http://localhost:9000/archivos/upload', formData).subscribe({
+      await this.http.post<any>(`${environment.apiUrl}/archivos/upload`, formData).subscribe({
         next: (res: any) => {
           this.uploading = false;
           this.selectedFile = null;
-          this.orden.imagenUrl = `http://localhost:9000/${res.ruta}`;
+          this.orden.imagenUrl = `${environment.apiUrl}/${res.ruta}`;
           this.orden.archivos = [res];
         },
         error: (err) => {
@@ -101,7 +102,7 @@ export class PreprensaDetailComponent implements OnInit {
   async deleteImage() {
     if (!this.orden?.archivos || this.orden.archivos.length === 0) return;
     const idArchivo = this.orden.archivos[0].id_archivo;
-    await this.http.delete<any>(`http://localhost:9000/archivos/${idArchivo}`).subscribe({
+    await this.http.delete<any>(`${environment.apiUrl}/archivos/${idArchivo}`).subscribe({
       next: () => {
         this.orden.imagenUrl = null;
         this.orden.archivos = [];
