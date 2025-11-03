@@ -1,10 +1,8 @@
-version: "3.8"
-
 services:
   backend:
     build:
-      context: ./backend           # 👈 construí desde la carpeta backend
-      dockerfile: Dockerfile       # 👈 o el nombre que le pongas dentro de backend
+      context: .                  # 👈 usa toda la carpeta del proyecto
+      dockerfile: backend/Dockerfile
     network_mode: host
     env_file:
       - .env
