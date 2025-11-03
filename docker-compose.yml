@@ -13,4 +13,11 @@ services:
       - ./backend/uploads:/app/uploads
     restart: unless-stopped
 
-  
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    image: printing-frontend:latest
+    ports:
+      - "4200:80"
+    restart: unless-stopped

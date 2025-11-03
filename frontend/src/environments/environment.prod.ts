@@ -1,5 +1,5 @@
 // Production environment configuration
 export const environment = {
   production: true,
-  apiUrl: 'http://backend:8000'  // Backend API base URL for production (Docker service name or production URL)
+  apiUrl: 'https://34.136.188.79:9000'  // Backend API base URL for production (Docker service name or production URL)
 };
