@@ -1,0 +1,16 @@
+# requirements generated from repository analysis
+# FastAPI app using SQLAlchemy (async), pydantic v2 and file uploads
+fastapi>=0.95
+uvicorn[standard]>=0.22
+SQLAlchemy>=1.4
+asyncpg>=0.27
+pydantic>=2.0
+pydantic-settings>=2.0
+passlib[bcrypt]>=1.7
+python-multipart>=0.0.6
+python-dotenv>=1.0
+
+# Optional / dev (uncomment if you use them)
+# alembic>=1.10
+# pytest>=7.0
+email-validator>=1.3
