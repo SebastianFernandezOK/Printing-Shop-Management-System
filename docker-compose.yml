@@ -1,11 +1,14 @@
 services:
   backend:
     build:
-      context: .                  # 👈 usa toda la carpeta del proyecto
+      context: .
       dockerfile: backend/Dockerfile
-    network_mode: host
+    ports:
+      - "9000:9000"     # 👈 ahora sí se publica hacia afuera
     env_file:
       - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # 👈 para hablar con la DB del host (Linux)
     command: uvicorn main:app --host 0.0.0.0 --port 9000
     volumes:
       - ./backend/uploads:/app/uploads
