@@ -13,7 +13,14 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-prensa',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, RouterModule, PrensaDetalleComponent],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    RouterModule,
+    PrensaDetalleComponent
+  ],
   templateUrl: './prensa.component.html',
   styleUrls: ['./prensa.component.scss']
 })
@@ -25,25 +32,29 @@ export class PrensaComponent {
   // Fallback seguro para el prefijo de API
   private readonly API = environment.apiUrl || '/api';
 
-  // 👇 Esto lo usa tu template (linea que rompía): mantener este nombre
+  // Esto lo usa el template
   public readonly apiUrl = this.API;
 
   constructor(private http: HttpClient) {
     const params = new HttpParams().set('offset', 0).set('limit', 50);
+    // ✅ Tu backend requiere barra final al final del recurso
     this.ordenes$ = this.http
-      .get<any>(`${this.API}/ordenes_trabajo`, { params })
+      .get<any>(`${this.API}/ordenes_trabajo/`, { params })
       .pipe(map(res => res.data));
   }
 
   selectOrden(orden: any) {
     this.loadingDetalle = true;
 
+    // Endpoint por ID (sin barra final)
     this.http.get<any>(`${this.API}/ordenes_trabajo/${orden.id_orden_trabajo}`).subscribe({
       next: (detalle) => {
         this.selectedOrden = detalle;
         this.loadingDetalle = false;
 
         if (detalle?.archivos?.length > 0) {
+          // ⚠️ el backend sirve /uploads, no /api/uploads
+          // se mantiene así para que Nginx lo redireccione correctamente
           this.selectedOrden.imagenUrl = `${this.API}/${detalle.archivos[0].ruta}`;
         }
       },
