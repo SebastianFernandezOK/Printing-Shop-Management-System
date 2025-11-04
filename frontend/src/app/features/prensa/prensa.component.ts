@@ -22,11 +22,13 @@ export class PrensaComponent {
   selectedOrden: any = null;
   loadingDetalle = false;
 
-  // Fallback por si en runtime environment.apiUrl viene vacío
+  // Fallback seguro para el prefijo de API
   private readonly API = environment.apiUrl || '/api';
 
+  // 👇 Esto lo usa tu template (linea que rompía): mantener este nombre
+  public readonly apiUrl = this.API;
+
   constructor(private http: HttpClient) {
-    // Trae todas las órdenes; mapear al array "data"
     const params = new HttpParams().set('offset', 0).set('limit', 50);
     this.ordenes$ = this.http
       .get<any>(`${this.API}/ordenes_trabajo`, { params })
@@ -41,10 +43,7 @@ export class PrensaComponent {
         this.selectedOrden = detalle;
         this.loadingDetalle = false;
 
-        // Si hay archivos asociados, construir la URL de imagen principal
         if (detalle?.archivos?.length > 0) {
-          // Nota: la API ya expone rutas relativas (p.ej. "uploads/archivo.jpg")
-          // prefijamos con /api para que Nginx lo proxyee al backend
           this.selectedOrden.imagenUrl = `${this.API}/${detalle.archivos[0].ruta}`;
         }
       },
