@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -21,25 +21,31 @@ export class PrensaComponent {
   ordenes$: Observable<any[]>;
   selectedOrden: any = null;
   loadingDetalle = false;
-  apiUrl = environment.apiUrl;
+
+  // Fallback por si en runtime environment.apiUrl viene vacío
+  private readonly API = environment.apiUrl || '/api';
 
   constructor(private http: HttpClient) {
-    // Usar el endpoint general para traer todas las órdenes y mapear solo el array
-    this.ordenes$ = this.http.get<any>(`${environment.apiUrl}/ordenes_trabajo?offset=0&limit=50`)
+    // Trae todas las órdenes; mapear al array "data"
+    const params = new HttpParams().set('offset', 0).set('limit', 50);
+    this.ordenes$ = this.http
+      .get<any>(`${this.API}/ordenes_trabajo`, { params })
       .pipe(map(res => res.data));
   }
 
   selectOrden(orden: any) {
     this.loadingDetalle = true;
-    // Usar el endpoint por id para traer el detalle completo
-    this.http.get<any>(`${environment.apiUrl}/ordenes_trabajo/${orden.id_orden_trabajo}`).subscribe({
+
+    this.http.get<any>(`${this.API}/ordenes_trabajo/${orden.id_orden_trabajo}`).subscribe({
       next: (detalle) => {
         this.selectedOrden = detalle;
         this.loadingDetalle = false;
-        // Si hay archivos, asignar la imagen principal
-        if (detalle.archivos && detalle.archivos.length > 0) {
-          // Puedes elegir la última, la primera, o la que cumpla algún criterio
-          this.selectedOrden.imagenUrl = `${environment.apiUrl}/${detalle.archivos[0].ruta}`;
+
+        // Si hay archivos asociados, construir la URL de imagen principal
+        if (detalle?.archivos?.length > 0) {
+          // Nota: la API ya expone rutas relativas (p.ej. "uploads/archivo.jpg")
+          // prefijamos con /api para que Nginx lo proxyee al backend
+          this.selectedOrden.imagenUrl = `${this.API}/${detalle.archivos[0].ruta}`;
         }
       },
       error: () => {
